@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1st Annual Gala – Chabad of Fredericksburg | Shining Lights</title>
+  <meta name="description" content="Join Chabad of Fredericksburg's 1st Annual Gala: Shining Lights. RSVP, sponsor, or place a digital tribute." />
+  <meta name="theme-color" content="#0b1626" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================
+       DESIGN TOKENS
+    ======================================== */
+    :root {
+      --gold: #d4af37;
+      --gold-2: #f4d170;
+      --gold-3: #b8941f;
+      --gold-bright: #ffd700;
+      --navy: #0b1626;
+      --navy-2: #0f1e34;
+      --teal: #0e2e33;
+      --ink: #0a0f16;
+      --off: #f8f8f8;
+      --muted: #b5b5b5;
+      --gray: #8a8a8a;
+      
+      --container: min(1200px, 92vw);
+      --radius: 12px;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,.25);
+      --shadow-md: 0 8px 24px rgba(0,0,0,.3);
+      --shadow-lg: 0 12px 36px rgba(0,0,0,.35);
+      --shadow-xl: 0 18px 48px rgba(0,0,0,.4);
+      
+      --transition: 200ms ease;
+      --font-display: Cinzel, serif;
+      --font-accent: "Cormorant Garamond", serif;
+      --font-body: Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    /* ========================================
+       BASE & RESET
+    ======================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--off);
+      background: 
+        radial-gradient(1400px 900px at 18% 12%, rgba(14,46,51,.38) 0%, transparent 58%),
+        radial-gradient(1100px 800px at 82% 78%, rgba(11,22,38,.45) 0%, transparent 62%),
+        linear-gradient(165deg, var(--navy) 0%, var(--ink) 55%, var(--teal) 100%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    /* Animated particles background */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #particles {
+        display: none;
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .visually-hidden:focus {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      width: auto;
+      height: auto;
+      padding: 12px 20px;
+      background: var(--navy);
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      z-index: 9999;
+      clip: auto;
+      border-radius: var(--radius);
+    }
+
+    .container {
+      width: var(--container);
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========================================
+       HEADER
+    ======================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: saturate(180%) blur(16px);
+      background: linear-gradient(180deg, rgba(11,22,38,.96) 0%, rgba(0,0,0,.75) 100%);
+      border-bottom: 1px solid rgba(212,175,55,.3);
+      box-shadow: 0 4px 16px rgba(0,0,0,.3);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(212,175,55,.5);
+      line-height: 1.3;
+    }
+
+    .brand small {
+      display: block;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      font-size: 0.7rem;
+      opacity: 0.88;
+      margin-top: 0.2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1.05rem 2.8rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      border-radius: 10px;
+      border: 2px solid var(--gold);
+      color: #0a0a0a;
+      background: linear-gradient(135deg, var(--gold-3) 0%, var(--gold) 50%, var(--gold-2) 100%);
+      box-shadow: 0 10px 30px rgba(212,175,55,.4), inset 0 1px 0 rgba(255,255,255,.3);
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(212,175,55,.6), inset 0 1px 0 rgba(255,255,255,.4);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
+
+    /* ========================================
+       HERO SECTION
+    ======================================== */
+    .hero {
+      position: relative;
+      padding: 8rem 0 6rem;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.4;
+    }
+
+    .org {
+      color: var(--gold);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin: 0.25rem 0 1.2rem;
+      opacity: 0.92;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      margin: 0 0 1.2rem;
+    }
+
+    .hero .line {
+      display: block;
+      font-size: clamp(2.3rem, 6vw, 4.2rem);
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .hero .gala {
+      display: block;
+      font-size: clamp(4.8rem, 12vw, 9rem);
+      text-transform: uppercase;
+      line-height: 0.88;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold-2) 25%, var(--gold) 50%, var(--gold-2) 75%, var(--gold-bright) 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 40px rgba(212,175,55,.7)) drop-shadow(0 0 80px rgba(212,175,55,.35));
+      animation: shimmer 8s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero .gala {
+        animation: none;
+      }
+    }
+
+    .divider {
+      width: 280px;
+      height: 2px;
+      margin: 2.2rem auto 2.5rem;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold-bright) 50%, var(--gold) 80%, transparent 100%);
+      box-shadow: 0 0 24px rgba(212,175,55,.55);
+      position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '◆';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 0.5rem;
+    }
+
+    .divider::before { left: -12px; }
+    .divider::after { right: -12px; }
+
+    .theme {
+      font-family: var(--font-accent);
+      font-size: clamp(1.35rem, 3.6vw, 2.25rem);
+      font-style: italic;
+      margin: 0 0 3rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ========================================
+       EVENT DETAILS CARD
+    ======================================== */
+    .event-details {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      background: linear-gradient(135deg, rgba(11,22,38,.92) 0%, rgba(14,46,51,.88) 100%);
+      border: 1px solid rgba(212,175,55,.35);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-details::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-2), transparent);
+      opacity: 0.5;
+    }
+
+    .event-details h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 1.8rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .details-grid {
+      display: grid;
+      gap: 1.8rem;
+      grid-template-columns: 1fr;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.6rem;
+    }
+
+    @media (min-width: 768px) {
+      .detail-item {
+        align-items: flex-start;
+        text-align: left;
+      }
+    }
+
+    .detail-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .detail-content {
+      flex: 1;
+    }
+
+    .detail-label {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.95;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    @media (min-width: 768px) {
+      .detail-label {
+        justify-content: flex-start;
+      }
+    }
+
+    .detail-value {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .detail-value .he {
+      color: var(--gold-2);
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    .date-divider {
+      display: inline-block;
+      margin: 0 0.5rem;
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    /* Map container */
+    .map-wrapper {
+      grid-column: 1 / -1;
+      margin-top: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(212,175,55,.25);
+      box-shadow: var(--shadow-md);
+      height: 300px;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+    }
+
+    /* ========================================
+       SECTIONS
+    ======================================== */
+    .section {
+      padding: 7rem 0;
+      background: linear-gradient(180deg, rgba(11,22,38,.88) 0%, rgba(0,0,0,.92) 100%);
+      box-shadow: var(--shadow-md);
+      border-top: 1px solid rgba(255,255,255,.03);
+      position: relative;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.4;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      text-align: center;
+      margin: 0 0 1.2rem;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold-2) 0%, var(--gold) 50%, var(--gold-3) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      text-align: center;
+      font-style: italic;
+      font-size: 1.05rem;
+      margin: 0 0 4rem;
+      font-family: var(--font-accent);
+    }
+
+    /* ========================================
+       CARDS - TRIBUTE COMMITTEE
+    ======================================== */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1000px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1300px) {
+      .grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .card {
+      background: linear-gradient(135deg, rgba(11,22,38,.94) 0%, rgba(0,0,0,.9) 100%);
+      border: 1px solid rgba(212,175,55,.28);
+      border-radius: var(--radius);
+      padding: 2.4rem 2rem;
+      box-shadow: var(--shadow-md);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl), 0 0 30px rgba(212,175,55,.2);
+      border-color: var(--gold);
+    }
+
+    .card:hover::before {
+      opacity: 0.6;
+    }
+
+    .card h3 {
+      font-family: var(--font-display);
+      margin: 0.1rem 0 0.6rem;
+      font-size: 1.75rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .amt {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: var(--gold-2);
+      letter-spacing: 0.04em;
+    }
+
+    .card .div {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-bright) 50%, var(--gold) 100%);
+      margin: 0 0 1.4rem;
+      box-shadow: 0 0 8px rgba(212,175,55,.4);
+    }
+
+    .card ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      flex-grow: 1;
+    }
+
+    .card li {
+      color: var(--gray);
+      line-height: 1.9;
+      padding-left: 1.3rem;
+      position: relative;
+      font-size: 0.98rem;
+    }
+
+    .card li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.7rem;
+      top: 0.35rem;
+    }
+
+    /* ========================================
+       DIGITAL TRIBUTES - 4-UP GRID
+    ======================================== */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1120px) {
+      .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .dcard {
+      background: linear-gradient(135deg, rgba(11,22,38,.92) 0%, rgba(0,0,0,.88) 100%);
+      border: 1px solid rgba(212,175,55,.25);
+      border-radius: var(--radius);
+      padding: 1.9rem 1.6rem;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dcard::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .dcard:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow-lg), 0 0 24px rgba(212,175,55,.25);
+    }
+
+    .dcard:hover::after {
+      opacity: 0.5;
+    }
+
+    .dcard h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin: 0.1rem 0 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+    }
+
+    .dcard .amt {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin: 0 0 0.8rem;
+      color: var(--gold-2);
+    }
+
+    .dcard .div {
+      width: 55px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+      margin: 0 0 0.8rem;
+      box-shadow: 0 0 6px rgba(212,175,55,.35);
+    }
+
+    .dcard p {
+      color: var(--gray);
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      flex-grow: 1;
+    }
+
+    /* ========================================
+       HOST COMMITTEE
+    ======================================== */
+    .host-box {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(11,22,38,.7) 0%, rgba(14,46,51,.65) 100%);
+      border: 1px solid rgba(212,175,55,.32);
+      padding: 2.8rem 2.4rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,.06);
+      position: relative;
+    }
+
+    .host-box::before,
+    .host-box::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--gold);
+      opacity: 0.4;
+    }
+
+    .host-box::before {
+      top: 12px;
+      left: 12px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .host-box::after {
+      bottom: 12px;
+      right: 12px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .host-box .names {
+      font-family: var(--font-accent);
+      font-size: 1.15rem;
+      line-height: 2;
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    .host-box .status {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    /* ========================================
+       CTA BAND & FOOTER
+    ======================================== */
+    .cta-band {
+      padding: 6rem 0;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(11,22,38,.96) 0%, rgba(0,0,0,.92) 100%);
+      border-block: 1px solid rgba(212,175,55,.38);
+      position: relative;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-2), transparent);
+      opacity: 0.5;
+    }
+
+    .cta-band p {
+      margin-top: 1.2rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .cta-band a[href^="mailto"] {
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold);
+      transition: color var(--transition), border-color var(--transition);
+    }
+
+    .cta-band a[href^="mailto"]:hover {
+      color: var(--gold-2);
+      border-color: var(--gold-2);
+    }
+
+    footer {
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(212,175,55,.24);
+      background: rgba(11,22,38,.92);
+    }
+
+    /* ========================================
+       RESPONSIVE ADJUSTMENTS
+    ======================================== */
+    @media (max-width: 767px) {
+      .btn {
+        padding: 0.95rem 2.2rem;
+        font-size: 0.85rem;
+      }
+
+      .hero {
+        padding: 6rem 0 4rem;
+      }
+
+      .event-details {
+        padding: 2rem 1.5rem;
+      }
+
+      .section {
+        padding: 5rem 0;
+      }
+
+      .card,
+      .dcard {
+        padding: 1.8rem 1.5rem;
+      }
+
+      .map-wrapper {
+        height: 250px;
+      }
+
+      .detail-item {
+        align-items: center;
+        text-align: center;
+      }
+
+      .detail-label {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand {
+        font-size: 0.9rem;
+      }
+
+      .brand small {
+        font-size: 0.65rem;
+      }
+
+      .header-inner {
+        padding: 0.9rem 0;
+      }
+
+      .btn {
+        padding: 0.85rem 1.8rem;
+        font-size: 0.8rem;
+      }
+
+      .event-details h2 {
+        font-size: 1.2rem;
+      }
+
+      .detail-label {
+        font-size: 0.8rem;
+      }
+
+      .detail-value {
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  
+  <a class="visually-hidden" href="#main">Skip to main content</a>
+
+  <!-- ========================================
+       HEADER
+  ======================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        Chabad of Fredericksburg
+        <small>Shining Lights Gala</small>
+      </div>
+      <a class="btn" data-url href="#" aria-label="RSVP or place a tribute">RSVP / Tribute</a>
+    </div>
+  </header>
+
+  <!-- ========================================
+       MAIN CONTENT
+  ======================================== -->
+  <main id="main">
+    
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container">
+        <p class="org">Chabad of Fredericksburg</p>
+        <h1>
+          <span class="line">1<sup>st</sup> Annual</span>
+          <span class="gala">Gala</span>
+        </h1>
+        <div class="divider" aria-hidden="true"></div>
+        <p class="theme">Shining Lights: Celebrating the Past, Inspiring the Future</p>
+
+        <!-- EVENT DETAILS CARD -->
+        <div class="event-details">
+          <h2>Event Details</h2>
+          <div class="details-grid">
+            
+            <div class="detail-item">
+              <div class="detail-content">
+                <div class="detail-label">
+                  <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-width="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="8" y1="2" x2="8" y2="6" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
+                  </svg>
+                  Date
+                </div>
+                <div class="detail-value">
+                  Tuesday, December 2, 2025
+                  <span class="date-divider">•</span>
+                  <span class="he">12 Kislev 5786</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-content">
+                <div class="detail-label">
+                  <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                    <polyline points="12 6 12 12 16 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Time
+                </div>
+                <div class="detail-value">6:00 PM</div>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-content">
+                <div class="detail-label">
+                  <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke-width="2"/>
+                    <circle cx="12" cy="10" r="3" stroke-width="2"/>
+                  </svg>
+                  Venue
+                </div>
+                <div class="detail-value">The Maxine and Carl D. Silver Chabad Jewish Center at UMW</div>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-content">
+                <div class="detail-label">
+                  <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Address
+                </div>
+                <div class="detail-value">1500 College Avenue, Fredericksburg, VA 22401</div>
+              </div>
+            </div>
+
+            <div class="map-wrapper">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3120.7567891234567!2d-77.4707!3d38.3037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b6c1a0b1a0b1a0%3A0x1a0b1a0b1a0b1a0!2s1500%20College%20Ave%2C%20Fredericksburg%2C%20VA%2022401!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Map to The Maxine and Carl D. Silver Chabad Jewish Center at UMW">
+              </iframe>
+            </div>
+
+          </div>
+        </div>
+
+        <p class="hero-cta">
+          <a class="btn" data-url href="#" aria-label="RSVP or place a tribute">RSVP / Tribute</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- TRIBUTE COMMITTEE SECTION -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Tribute Committee</h2>
+        <p class="section-sub">Includes Dinner & Digital Tribute</p>
+
+        <div class="grid">
+          <article class="card">
+            <h3>Emerald</h3>
+            <div class="amt">$25,000</div>
+            <div class="div"></div>
+            <ul>
+              <li>Dinner Reservations</li>
+              <li>Premier Recognition on Digital Tribute Display</li>
+              <li>Prominent Mention in Event Materials</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Ruby</h3>
+            <div class="amt">$18,000</div>
+            <div class="div"></div>
+            <ul>
+              <li>Dinner Reservations</li>
+              <li>Featured Recognition on Digital Tribute Display</li>
+              <li>Mention in Event Materials</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Sapphire</h3>
+            <div class="amt">$10,000</div>
+            <div class="div"></div>
+            <ul>
+              <li>Dinner Reservations</li>
+              <li>Prominent Recognition on Digital Tribute Display</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Gold</h3>
+            <div class="amt">$3,600</div>
+            <div class="div"></div>
+            <ul>
+              <li>Dinner Reservations</li>
+              <li>Recognition on Digital Tribute Display</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Silver</h3>
+            <div class="amt">$1,800</div>
+            <div class="div"></div>
+            <ul>
+              <li>Dinner Reservations</li>
+              <li>Recognition on Digital Tribute Display</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="section-sub" style="margin-top: 2.4rem;">
+          All Tribute Committee Donors ($1,800 and above) automatically receive Dinner Reservations and a Digital Tribute Display.
+        </p>
+      </div>
+    </section>
+
+    <!-- DIGITAL TRIBUTES SECTION -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Digital Tributes</h2>
+        <p class="section-sub">Displayed on a loop throughout the evening</p>
+
+        <div class="grid-4">
+          <article class="dcard">
+            <h3>Full-Screen Digital Tribute</h3>
+            <div class="amt">$1,000</div>
+            <div class="div"></div>
+            <p>Full-screen message or photo displayed on loop</p>
+          </article>
+
+          <article class="dcard">
+            <h3>Half-Screen Digital Tribute</h3>
+            <div class="amt">$720</div>
+            <div class="div"></div>
+            <p>Half-screen message displayed on loop</p>
+          </article>
+
+          <article class="dcard">
+            <h3>Quarter-Screen Digital Tribute</h3>
+            <div class="amt">$360</div>
+            <div class="div"></div>
+            <p>Quarter-screen message displayed on loop</p>
+          </article>
+
+          <article class="dcard">
+            <h3>Name Listing (Supporter Scroll)</h3>
+            <div class="amt">$250</div>
+            <div class="div"></div>
+            <p>Name displayed on supporter scroll loop</p>
+          </article>
+        </div>
+
+        <p class="section-sub" style="margin-top: 2.4rem;">
+          Digital Tribute Donors are warmly recognized on-screen throughout the Gala program. The complete Tribute Presentation will loop continuously.
+        </p>
+      </div>
+    </section>
+
+    <!-- HOST COMMITTEE SECTION -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Host Committee</h2>
+        <div class="host-box">
+          <p class="names">
+            Mushky & Rabbi Shaya Gourarie · Nechomie & Rabbi Yossel Kranz · Deborah & Larry D. Silver · Dr. Kelly & Dr. Troy Paino · Spencer Silver · Rhonda & Adam Fried · Wendy Rice & Jeff Small · Rabbi Josh Broide
+          </p>
+          <p class="status">In formation</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="cta-band">
+      <div class="container">
+        <a class="btn" data-url href="#" aria-label="RSVP or place a tribute">RSVP / Tribute</a>
+        <p>
+          Questions? Email 
+          <a href="mailto:rabbi@jewishumw.org">rabbi@jewishumw.org</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================
+       FOOTER
+  ======================================== -->
+  <footer>
+    © 2025 Chabad of Fredericksburg
+  </footer>
+
+  <!-- ========================================
+       SCRIPTS
+  ======================================== -->
+  <script>
+    // Single source of truth for the donation URL
+    const GIVE_URL = 'https://example.com/givelively'; // TODO: replace with your live GiveLively link
+
+    // Wire up all [data-url] CTAs
+    document.querySelectorAll('[data-url]').forEach(anchor => {
+      anchor.href = GIVE_URL;
+      anchor.addEventListener('click', e => {
+        if (GIVE_URL.includes('example.com')) {
+          e.preventDefault();
+          alert('Swap GIVE_URL with your live GiveLively link.');
+        }
+      });
+    });
+
+    // Smooth scroll for in-page anchors with header offset
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href && href.length > 1) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            const headerHeight = document.querySelector('.site-header').offsetHeight;
+            const targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetTop,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Particle animation background
+    (function() {
+      const canvas = document.getElementById('particles');
+      if (!canvas) return;
+      
+      // Check for reduced motion preference
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let animationId;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function Particle() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.radius = Math.random() * 1.5 + 0.5;
+        this.opacity = Math.random() * 0.3 + 0.1;
+      }
+
+      Particle.prototype.update = function() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      };
+
+      Particle.prototype.draw = function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+        ctx.fill();
+      };
+
+      function init() {
+        resize();
+        particles = [];
+        const particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 60);
+        
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
+
+        // Draw connections
+        particles.forEach((p1, i) => {
+          particles.slice(i + 1).forEach(p2 => {
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 150) {
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 * (1 - distance / 150)})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          });
+        });
+
+        animationId = requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(animationId);
+        init();
+        animate();
+      });
+
+      init();
+      animate();
+    })();
+  </script>
+</body>
+</html>

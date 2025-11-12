@@ -141,7 +141,7 @@
       border: 2px solid var(--gold);
       color: #0a0a0a;
       background: linear-gradient(135deg, var(--gold-3) 0%, var(--gold) 50%, var(--gold-2) 100%);
-      box-shadow: 0 10px 30px rgba(212,175,55,.4), inset 0 1px 0 rgba(255,255,255,.3);
+      box-shadow: 10px 10px 30px rgba(212,175,55,.4), inset 0 1px 0 rgba(255,255,255,.3);
       transition: transform var(--transition), box-shadow var(--transition);
       cursor: pointer;
       position: relative;
@@ -170,7 +170,8 @@
 
     .hero {
       position: relative;
-      padding: 2rem 0 5rem;
+      /* Compressed padding for minimal vertical space */
+      padding: 1rem 0 2rem; 
       text-align: center;
       min-height: calc(100vh - 80px);
       display: flex;
@@ -197,8 +198,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
-      margin-bottom: 1.5rem;
+      /* Reduced gap */
+      gap: 1.5rem; 
+      margin-bottom: 0.5rem;
     }
 
     .hero-photo {
@@ -206,7 +208,8 @@
       max-width: 900px;
       position: relative;
       order: -1;
-      margin-bottom: 1rem;
+      /* Reduced bottom margin */
+      margin-bottom: 0.5rem;
     }
 
     .hero-photo::after {
@@ -224,7 +227,8 @@
     .hero-img {
       width: 100%;
       height: auto;
-      max-height: 320px;
+      /* Reduced max-height significantly for better fit on small screens */
+      max-height: 220px; 
       object-fit: cover;
       border-radius: 12px;
       opacity: 0.82;
@@ -236,17 +240,20 @@
 
     @media (min-width: 768px) {
       .hero-img {
-        max-height: 360px;
+        /* Reduced max-height for tablets */
+        max-height: 250px; 
       }
     }
 
     @media (min-width: 1200px) {
       .hero {
-        padding: 2.5rem 0 4rem;
+        /* Compressed padding for desktop */
+        padding: 1.5rem 0 3rem;
       }
       
       .hero-img {
-        max-height: 380px;
+        /* Reduced max-height for desktop */
+        max-height: 280px;
       }
     }
 
@@ -300,7 +307,8 @@
     .divider {
       width: 280px;
       height: 2px;
-      margin: 2.2rem auto 2.5rem;
+      /* Reduced margin */
+      margin: 1.5rem auto 2rem;
       background: linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold-bright) 50%, var(--gold) 80%, transparent 100%);
       box-shadow: 0 0 24px rgba(212,175,55,.55);
       position: relative;
@@ -450,7 +458,8 @@
     }
 
     .hero-cta {
-      margin-top: 2.5rem;
+      /* Reduced top margin */
+      margin-top: 2rem;
     }
 
     .section {
@@ -749,6 +758,7 @@
       display: block;
       border-radius: 10px;
       background: rgba(255,255,255,.05);
+      /* Setting min-height for initial load, but removing fixed height */
     }
 
     #rsvp p {
@@ -821,7 +831,8 @@
         font-size: 0.85rem;
       }
       .hero {
-        padding: 6rem 0 4rem;
+        /* Further reduced padding for mobile */
+        padding: 5rem 0 3rem;
       }
       .section {
         padding: 5rem 0;
@@ -1068,7 +1079,7 @@
           title="Gala RSVP & Tribute Form"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          style="width:100%; height:2100px; border:0; display:block;">
+          style="width:100%; height:3500px; border:0; display:block;">
         </iframe>
       </div>
     </section>

@@ -386,17 +386,13 @@
     .detail-item {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      /* FIX: Align content and text to the left on all screen sizes */
+      align-items: flex-start;
+      text-align: left;
       gap: 0.6rem;
     }
 
-    @media (min-width: 768px) {
-      .detail-item {
-        align-items: flex-start;
-        text-align: left;
-      }
-    }
+    /* The original media query block for .detail-item is now redundant and has been removed */
 
     .detail-icon {
       width: 32px;
@@ -758,7 +754,7 @@
       display: block;
       border-radius: 10px;
       background: rgba(255,255,255,.05);
-      /* Setting min-height for initial load, but removing fixed height */
+      /* Setting fixed height to avoid internal iframe scrolling */
     }
 
     #rsvp p {

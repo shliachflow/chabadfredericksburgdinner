@@ -13,9 +13,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ========================================
-       DESIGN TOKENS
-    ======================================== */
     :root {
       --gold: #d4af37;
       --gold-2: #f4d170;
@@ -28,23 +25,18 @@
       --off: #f8f8f8;
       --muted: #b5b5b5;
       --gray: #8a8a8a;
-      
       --container: min(1200px, 92vw);
       --radius: 12px;
       --shadow-sm: 0 4px 12px rgba(0,0,0,.25);
       --shadow-md: 0 8px 24px rgba(0,0,0,.3);
       --shadow-lg: 0 12px 36px rgba(0,0,0,.35);
       --shadow-xl: 0 18px 48px rgba(0,0,0,.4);
-      
       --transition: 200ms ease;
       --font-display: Cinzel, serif;
       --font-accent: "Cormorant Garamond", serif;
       --font-body: Inter, system-ui, -apple-system, sans-serif;
     }
 
-    /* ========================================
-       BASE & RESET
-    ======================================== */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -53,17 +45,6 @@
 
     html {
       scroll-behavior: smooth;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-      html {
-        scroll-behavior: auto;
-      }
     }
 
     body {
@@ -81,7 +62,6 @@
       position: relative;
     }
 
-    /* Animated particles background */
     #particles {
       position: fixed;
       top: 0;
@@ -91,12 +71,6 @@
       z-index: 0;
       pointer-events: none;
       opacity: 0.3;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      #particles {
-        display: none;
-      }
     }
 
     a {
@@ -110,33 +84,6 @@
       border-radius: 4px;
     }
 
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      padding: 0;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    .visually-hidden:focus {
-      position: fixed;
-      top: 8px;
-      left: 8px;
-      width: auto;
-      height: auto;
-      padding: 12px 20px;
-      background: var(--navy);
-      border: 2px solid var(--gold);
-      color: var(--gold);
-      z-index: 9999;
-      clip: auto;
-      border-radius: var(--radius);
-    }
-
     .container {
       width: var(--container);
       margin-inline: auto;
@@ -145,9 +92,6 @@
       z-index: 1;
     }
 
-    /* ========================================
-       HEADER
-    ======================================== */
     .site-header {
       position: sticky;
       top: 0;
@@ -224,17 +168,13 @@
       left: 100%;
     }
 
-    .btn:active {
-      transform: translateY(-1px);
-    }
-
-    /* ========================================
-       HERO SECTION
-    ======================================== */
     .hero {
       position: relative;
-      padding: 8rem 0 6rem;
+      padding: 2rem 0 5rem;
       text-align: center;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
     }
 
     .hero::before {
@@ -244,9 +184,74 @@
       left: 50%;
       transform: translateX(-50%);
       width: 1px;
-      height: 80px;
+      height: 60px;
       background: linear-gradient(to bottom, transparent, var(--gold), transparent);
       opacity: 0.4;
+    }
+
+    .hero > .container {
+      width: 100%;
+    }
+
+    .hero-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+      order: -1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 60%);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      opacity: 0.82;
+      mix-blend-mode: screen;
+      box-shadow: 0 4px 16px rgba(0,0,0,.35), 0 12px 40px rgba(0,0,0,.25);
+      display: block;
+      filter: brightness(0.92) contrast(1.08);
+    }
+
+    @media (min-width: 768px) {
+      .hero-img {
+        max-height: 360px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .hero {
+        padding: 2.5rem 0 4rem;
+      }
+      
+      .hero-img {
+        max-height: 380px;
+      }
+    }
+
+    .hero-text {
+      flex: 0 1 auto;
     }
 
     .org {
@@ -292,12 +297,6 @@
       50% { background-position: 100% 50%; }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .hero .gala {
-        animation: none;
-      }
-    }
-
     .divider {
       width: 280px;
       height: 2px;
@@ -329,9 +328,6 @@
       line-height: 1.4;
     }
 
-    /* ========================================
-       EVENT DETAILS CARD
-    ======================================== */
     .event-details {
       max-width: 900px;
       margin: 0 auto 3rem;
@@ -370,8 +366,6 @@
       display: grid;
       gap: 1.8rem;
       grid-template-columns: 1fr;
-      max-width: 100%;
-      margin: 0 auto;
     }
 
     @media (min-width: 768px) {
@@ -419,12 +413,6 @@
       margin-bottom: 0.4rem;
     }
 
-    @media (min-width: 768px) {
-      .detail-label {
-        justify-content: flex-start;
-      }
-    }
-
     .detail-value {
       color: var(--muted);
       font-size: 0.98rem;
@@ -444,7 +432,6 @@
       opacity: 0.6;
     }
 
-    /* Map container */
     .map-wrapper {
       grid-column: 1 / -1;
       margin-top: 1rem;
@@ -466,9 +453,6 @@
       margin-top: 2.5rem;
     }
 
-    /* ========================================
-       SECTIONS
-    ======================================== */
     .section {
       padding: 7rem 0;
       background: linear-gradient(180deg, rgba(11,22,38,.88) 0%, rgba(0,0,0,.92) 100%);
@@ -512,9 +496,6 @@
       font-family: var(--font-accent);
     }
 
-    /* ========================================
-       CARDS - TRIBUTE COMMITTEE
-    ======================================== */
     .grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -624,9 +605,6 @@
       top: 0.35rem;
     }
 
-    /* ========================================
-       DIGITAL TRIBUTES - 4-UP GRID
-    ======================================== */
     .grid-4 {
       display: grid;
       grid-template-columns: 1fr;
@@ -712,9 +690,6 @@
       flex-grow: 1;
     }
 
-    /* ========================================
-       HOST COMMITTEE
-    ======================================== */
     .host-box {
       max-width: 1000px;
       margin: 0 auto;
@@ -768,9 +743,32 @@
       opacity: 0.9;
     }
 
-    /* ========================================
-       CTA BAND & FOOTER
-    ======================================== */
+    #rsvp iframe {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: block;
+      border-radius: 10px;
+      background: rgba(255,255,255,.05);
+    }
+
+    #rsvp p {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    #rsvp p a {
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold);
+      transition: color var(--transition), border-color var(--transition);
+    }
+
+    #rsvp p a:hover {
+      color: var(--gold-2);
+      border-color: var(--gold-2);
+    }
+
     .cta-band {
       padding: 6rem 0;
       text-align: center;
@@ -817,113 +815,52 @@
       background: rgba(11,22,38,.92);
     }
 
-    /* ========================================
-       RESPONSIVE ADJUSTMENTS
-    ======================================== */
     @media (max-width: 767px) {
       .btn {
         padding: 0.95rem 2.2rem;
         font-size: 0.85rem;
       }
-
       .hero {
         padding: 6rem 0 4rem;
       }
-
-      .event-details {
-        padding: 2rem 1.5rem;
-      }
-
       .section {
         padding: 5rem 0;
-      }
-
-      .card,
-      .dcard {
-        padding: 1.8rem 1.5rem;
-      }
-
-      .map-wrapper {
-        height: 250px;
-      }
-
-      .detail-item {
-        align-items: center;
-        text-align: center;
-      }
-
-      .detail-label {
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .brand {
-        font-size: 0.9rem;
-      }
-
-      .brand small {
-        font-size: 0.65rem;
-      }
-
-      .header-inner {
-        padding: 0.9rem 0;
-      }
-
-      .btn {
-        padding: 0.85rem 1.8rem;
-        font-size: 0.8rem;
-      }
-
-      .event-details h2 {
-        font-size: 1.2rem;
-      }
-
-      .detail-label {
-        font-size: 0.8rem;
-      }
-
-      .detail-value {
-        font-size: 0.92rem;
       }
     }
   </style>
 </head>
 <body>
   <canvas id="particles"></canvas>
-  
-  <a class="visually-hidden" href="#main">Skip to main content</a>
 
-  <!-- ========================================
-       HEADER
-  ======================================== -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
         Chabad of Fredericksburg
         <small>Shining Lights Gala</small>
       </div>
-      <a class="btn" data-url href="#" aria-label="RSVP or place a tribute">RSVP / Tribute</a>
+      <a class="btn" href="#rsvp">RSVP / Tribute</a>
     </div>
   </header>
 
-  <!-- ========================================
-       MAIN CONTENT
-  ======================================== -->
   <main id="main">
     
-    <!-- HERO SECTION -->
     <section class="hero">
       <div class="container">
-        <p class="org">Chabad of Fredericksburg</p>
-        <h1>
-          <span class="line">1<sup>st</sup> Annual</span>
-          <span class="gala">Gala</span>
-        </h1>
+        <div class="hero-content-wrapper">
+          <div class="hero-text">
+            <p class="org">Chabad of Fredericksburg</p>
+            <h1>
+              <span class="line">1<sup>st</sup> Annual</span>
+              <span class="gala">Gala</span>
+            </h1>
+          </div>
+          <div class="hero-photo">
+            <img class="hero-img" src="https://github.com/shliachflow/chabadfredericksburgdinner/blob/main/Chabad%20Fredericksburg%20Wide%20Picture.png?raw=true" alt="Chabad Jewish Center" loading="eager">
+          </div>
+        </div>
         <div class="divider" aria-hidden="true"></div>
         <p class="theme">Shining Lights: Celebrating the Past, Inspiring the Future</p>
 
-        <!-- EVENT DETAILS CARD -->
         <div class="event-details">
           <h2>Event Details</h2>
           <div class="details-grid">
@@ -999,12 +936,11 @@
         </div>
 
         <p class="hero-cta">
-          <a class="btn" data-url href="#" aria-label="RSVP or place a tribute">RSVP / Tribute</a>
+          <a class="btn" href="#rsvp">RSVP / Tribute</a>
         </p>
       </div>
     </section>
 
-    <!-- TRIBUTE COMMITTEE SECTION -->
     <section class="section">
       <div class="container">
         <h2 class="section-title">Tribute Committee</h2>
@@ -1070,7 +1006,6 @@
       </div>
     </section>
 
-    <!-- DIGITAL TRIBUTES SECTION -->
     <section class="section">
       <div class="container">
         <h2 class="section-title">Digital Tributes</h2>
@@ -1112,7 +1047,6 @@
       </div>
     </section>
 
-    <!-- HOST COMMITTEE SECTION -->
     <section class="section">
       <div class="container">
         <h2 class="section-title">Host Committee</h2>
@@ -1125,10 +1059,23 @@
       </div>
     </section>
 
-    <!-- CTA BAND -->
+    <section id="rsvp" class="section">
+      <div class="container">
+        <h2 class="section-title">RSVP & Tribute Form</h2>
+        <p>If the form doesn't load, <a href="https://jewishfredericksburg.ticketspice.com/chabad-of-fredericksburg-1st-annual-gala" target="_blank" rel="noopener">open it in a new tab</a>.</p>
+        <iframe
+          src="https://jewishfredericksburg.ticketspice.com/chabad-of-fredericksburg-1st-annual-gala"
+          title="Gala RSVP & Tribute Form"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          style="width:100%; height:2100px; border:0; display:block;">
+        </iframe>
+      </div>
+    </section>
+
     <section class="cta-band">
       <div class="container">
-        <a class="btn" data-url href="#" aria-label="RSVP or place a tribute">RSVP / Tribute</a>
+        <a class="btn" href="#rsvp">RSVP / Tribute</a>
         <p>
           Questions? Email 
           <a href="mailto:rabbi@jewishumw.org">rabbi@jewishumw.org</a>
@@ -1138,32 +1085,11 @@
 
   </main>
 
-  <!-- ========================================
-       FOOTER
-  ======================================== -->
   <footer>
     © 2025 Chabad of Fredericksburg
   </footer>
 
-  <!-- ========================================
-       SCRIPTS
-  ======================================== -->
   <script>
-    // Single source of truth for the donation URL
-    const GIVE_URL = 'https://example.com/givelively'; // TODO: replace with your live GiveLively link
-
-    // Wire up all [data-url] CTAs
-    document.querySelectorAll('[data-url]').forEach(anchor => {
-      anchor.href = GIVE_URL;
-      anchor.addEventListener('click', e => {
-        if (GIVE_URL.includes('example.com')) {
-          e.preventDefault();
-          alert('Swap GIVE_URL with your live GiveLively link.');
-        }
-      });
-    });
-
-    // Smooth scroll for in-page anchors with header offset
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
         const href = link.getAttribute('href');
@@ -1182,16 +1108,9 @@
       });
     });
 
-    // Particle animation background
     (function() {
       const canvas = document.getElementById('particles');
       if (!canvas) return;
-      
-      // Check for reduced motion preference
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return;
-      }
-
       const ctx = canvas.getContext('2d');
       let particles = [];
       let animationId;
@@ -1213,7 +1132,6 @@
       Particle.prototype.update = function() {
         this.x += this.vx;
         this.y += this.vy;
-
         if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
         if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
       };
@@ -1229,7 +1147,6 @@
         resize();
         particles = [];
         const particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 60);
-        
         for (let i = 0; i < particleCount; i++) {
           particles.push(new Particle());
         }
@@ -1237,19 +1154,15 @@
 
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
         particles.forEach(particle => {
           particle.update();
           particle.draw();
         });
-
-        // Draw connections
         particles.forEach((p1, i) => {
           particles.slice(i + 1).forEach(p2 => {
             const dx = p1.x - p2.x;
             const dy = p1.y - p2.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-
             if (distance < 150) {
               ctx.beginPath();
               ctx.moveTo(p1.x, p1.y);
@@ -1260,7 +1173,6 @@
             }
           });
         });
-
         animationId = requestAnimationFrame(animate);
       }
 

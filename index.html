@@ -374,9 +374,13 @@
     }
 
     .live {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.9rem;
       margin: -1.6rem auto 3.2rem;
-      padding: 0.7rem 1.8rem;
+      padding: 0.6rem 1.8rem;
       font-family: var(--font-caps);
       font-size: clamp(.68rem, 1.8vw, .85rem);
       letter-spacing: 0.26em;
@@ -387,9 +391,11 @@
       background: rgba(214,178,94,.07);
     }
 
-    .live strong {
-      color: var(--gold-bright);
-      font-weight: 700;
+    .live img {
+      height: 44px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.45));
     }
 
     .theme {
@@ -515,6 +521,7 @@
       font-family: var(--font-accent);
       font-style: italic;
       font-size: 1.12em;
+      white-space: nowrap;
     }
 
     .date-divider {
@@ -994,7 +1001,7 @@
         </div>
         <div class="divider" aria-hidden="true"></div>
         <p class="theme">Shining Lights: Celebrating the Past, Inspiring the Future</p>
-        <p class="live">Live Musical Evening with the <strong>Shavrock</strong> Band</p>
+        <p class="live">Live Musical Evening with the <img src="shavrock-logo.png" alt="Shavrock" height="44"> Band</p>
 
         <div class="event-details">
           <h2>Event Details</h2>

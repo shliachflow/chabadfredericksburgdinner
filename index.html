@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>2nd Annual Gala – Chabad of Fredericksburg | Shining Lights</title>
   <meta name="description" content="Join Chabad of Fredericksburg's 2nd Annual Gala, a live musical evening with the Shavrock Band. RSVP, sponsor, or place a digital tribute." />
-  <meta name="theme-color" content="#07101e" />
+  <meta name="theme-color" content="#04191f" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,20 +14,20 @@
 
   <style>
     :root {
-      --navy: #07101e;
-      --navy-2: #0c1830;
-      --ink: #040a14;
-      --ivory: #f6f1e6;
-      --ivory-2: rgba(246,241,230,.78);
-      --ivory-3: rgba(246,241,230,.62);
-      --paper-ink: #0b1526;
-      --gold: #d6b25e;
-      --gold-hi: #f0d99a;
-      --gold-lo: #a98532;
-      --gold-deep: #765712;
-      --line: rgba(214,178,94,.24);
-      --line-strong: rgba(214,178,94,.55);
-      --paper-line: rgba(118,87,18,.42);
+      --navy: #04191f;
+      --navy-2: #082a32;
+      --ink: #020f13;
+      --ivory: #edf3f4;
+      --ivory-2: rgba(237,243,244,.78);
+      --ivory-3: rgba(237,243,244,.62);
+      --paper-ink: #051b21;
+      --silver: #b9c6cc;
+      --silver-hi: #dde6e9;
+      --silver-lo: #7d9199;
+      --silver-deep: #1f4f5a;
+      --line: rgba(185,198,204,.24);
+      --line-strong: rgba(185,198,204,.55);
+      --paper-line: rgba(31,79,90,.42);
       --gutter: clamp(1.25rem, 5vw, 2.5rem);
       --radius: 2px;
       --ease: cubic-bezier(.22,1,.36,1);
@@ -51,11 +51,11 @@
       line-height: 1.65;
     }
 
-    ::selection { background: rgba(214,178,94,.35); color: #fff; }
+    ::selection { background: rgba(185,198,204,.35); color: #fff; }
 
     a { color: inherit; text-decoration: none; }
 
-    :focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 4px; border-radius: 2px; }
+    :focus-visible { outline: 2px solid var(--silver-hi); outline-offset: 4px; border-radius: 2px; }
 
     .container {
       width: min(1180px, 100% - 2 * var(--gutter));
@@ -80,7 +80,7 @@
       font-family: var(--font-display);
       font-size: .9rem;
       letter-spacing: .1em;
-      color: var(--gold);
+      color: var(--silver);
       padding: .5rem 0 .1rem;
       background: var(--ink);
       animation: rise .9s var(--ease) both;
@@ -101,7 +101,7 @@
       left: 0; bottom: -1px;
       height: 1px;
       width: var(--p, 0%);
-      background: var(--gold);
+      background: var(--silver);
     }
 
     .header-inner {
@@ -117,7 +117,7 @@
       letter-spacing: .24em;
       font-weight: 600;
       font-size: .78rem;
-      color: var(--gold);
+      color: var(--silver);
       line-height: 1.35;
       min-width: 0;
     }
@@ -131,7 +131,7 @@
       margin-top: .3rem;
     }
 
-    /* ---------- Buttons: gold plate with an engraved inner line ---------- */
+    /* ---------- Buttons: silver plate with an engraved inner line ---------- */
     .btn {
       position: relative;
       display: inline-flex;
@@ -144,7 +144,7 @@
       text-transform: uppercase;
       font-size: .72rem;
       color: var(--paper-ink);
-      background: var(--gold);
+      background: var(--silver);
       border-radius: var(--radius);
       cursor: pointer;
       white-space: nowrap;
@@ -155,14 +155,14 @@
       content: '';
       position: absolute;
       inset: 3px;
-      border: 1px solid rgba(11,21,38,.35);
+      border: 1px solid rgba(5,27,33,.35);
       border-radius: 1px;
       pointer-events: none;
       transition: border-color var(--slow);
     }
 
-    .btn:hover { background: var(--gold-hi); }
-    .btn:hover::after { border-color: rgba(11,21,38,.65); }
+    .btn:hover { background: var(--silver-hi); }
+    .btn:hover::after { border-color: rgba(5,27,33,.65); }
 
     .site-header .btn { padding: .8rem 1.4rem; flex-shrink: 0; }
 
@@ -195,10 +195,10 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom,
-        rgba(7,16,30,.25) 0%,
-        rgba(7,16,30,0) 20%,
-        rgba(7,16,30,0) 52%,
-        rgba(7,16,30,.8) 82%,
+        rgba(4,25,31,.25) 0%,
+        rgba(4,25,31,0) 20%,
+        rgba(4,25,31,0) 52%,
+        rgba(4,25,31,.8) 82%,
         var(--navy) 100%);
     }
 
@@ -221,13 +221,13 @@
     }
 
     .org {
-      color: var(--gold);
+      color: var(--silver);
       font-weight: 600;
       letter-spacing: .34em;
       text-transform: uppercase;
       font-size: .76rem;
       margin-bottom: 1.2rem;
-      text-shadow: 0 0 14px rgba(7,16,30,.95), 0 1px 3px rgba(7,16,30,.9);
+      text-shadow: 0 0 14px rgba(4,25,31,.95), 0 1px 3px rgba(4,25,31,.9);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -239,7 +239,7 @@
       content: '';
       width: clamp(28px, 8vw, 80px);
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold));
+      background: linear-gradient(90deg, transparent, var(--silver));
     }
 
     .org::after { transform: scaleX(-1); }
@@ -259,7 +259,7 @@
 
     .hero .line sup { font-size: .55em; vertical-align: super; letter-spacing: 0; }
 
-    /* the only gradient on the page: gold leaf, moving very slowly */
+    /* the wordmark: polished chrome (see the metallic block at the end of the styles) */
     .hero .gala {
       display: block;
       font-size: clamp(5.8rem, 17vw, 13.5rem);
@@ -269,7 +269,7 @@
       letter-spacing: .06em;
       padding-left: .06em;
       font-variation-settings: "opsz" 24;
-      background: linear-gradient(115deg, var(--gold-lo) 0%, var(--gold-hi) 30%, var(--gold) 50%, var(--gold-hi) 70%, var(--gold-lo) 100%);
+      background: linear-gradient(115deg, var(--silver-lo) 0%, var(--silver-hi) 30%, var(--silver) 50%, var(--silver-hi) 70%, var(--silver-lo) 100%);
       background-size: 220% 100%;
       -webkit-background-clip: text;
       background-clip: text;
@@ -288,7 +288,7 @@
       width: 150px;
       margin-inline: auto;
       text-align: center;
-      color: var(--gold);
+      color: var(--silver);
       font-size: .5rem;
       line-height: 1;
       background:
@@ -343,7 +343,7 @@
       font-size: .78rem;
       letter-spacing: .36em;
       text-transform: uppercase;
-      color: var(--gold-deep);
+      color: var(--silver-deep);
       margin-bottom: 1.8rem;
       text-align: center;
       font-weight: 700;
@@ -363,7 +363,7 @@
     }
 
     .detail-label {
-      color: var(--gold-deep);
+      color: var(--silver-deep);
       font-weight: 700;
       font-size: .7rem;
       letter-spacing: .28em;
@@ -392,7 +392,7 @@
     /* the Hebrew date sits on its own line; the bullet separator is hidden */
     .detail-value .he {
       display: block;
-      color: var(--gold-deep);
+      color: var(--silver-deep);
       font-style: italic;
       font-size: .8em;
       margin-top: .15rem;
@@ -471,7 +471,7 @@
     @media (min-width: 1300px) { .tiers { --cols: 5; } }
 
     .card {
-      --tier: var(--gold);
+      --tier: var(--silver);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -502,7 +502,7 @@
       font-family: var(--font-display);
       font-size: clamp(1.8rem, 3.4vw, 2.4rem);
       font-weight: 500;
-      color: var(--gold);
+      color: var(--silver);
       white-space: nowrap;
       font-variant-numeric: lining-nums;
       font-variation-settings: "opsz" 16;
@@ -584,7 +584,7 @@
       .dcard:nth-last-child(2) { border-bottom: 1px solid var(--line); }
     }
 
-    /* four open columns: a short gold segment on the rule that runs out to full width on hover */
+    /* four open columns: a short silver segment on the rule that runs out to full width on hover */
     @media (min-width: 1120px) {
       .tributes { grid-template-columns: repeat(4, 1fr); column-gap: 2.4rem; max-width: none; }
       .dcard {
@@ -601,7 +601,7 @@
         top: -1px; left: 0;
         width: 48px;
         height: 1px;
-        background: var(--gold);
+        background: var(--silver);
         transition: width 900ms var(--ease);
       }
       .dcard:hover::before { width: 100%; }
@@ -629,13 +629,13 @@
 
     .host-box .nb { white-space: nowrap; }
 
-    .host-box .dot { color: var(--gold); font-style: normal; padding-inline: .1em; }
+    .host-box .dot { color: var(--silver); font-style: normal; padding-inline: .1em; }
 
     .host-box .status {
       display: inline-flex;
       align-items: center;
       gap: 1.1rem;
-      color: var(--gold);
+      color: var(--silver);
       text-transform: uppercase;
       letter-spacing: .32em;
       font-size: .72rem;
@@ -646,7 +646,7 @@
       content: '';
       width: 36px;
       height: 1px;
-      background: var(--gold);
+      background: var(--silver);
       opacity: .6;
     }
 
@@ -661,13 +661,13 @@
     #rsvp p a, .cta-band a[href^="mailto"] {
       display: inline-block;
       padding: .7rem 0 1rem;
-      color: var(--gold);
+      color: var(--silver);
       line-height: 1.2;
       background: linear-gradient(currentColor, currentColor) 0 calc(100% - .7rem) / 100% 1px no-repeat;
       transition: color var(--slow);
     }
 
-    #rsvp p a:hover, .cta-band a[href^="mailto"]:hover { color: var(--gold-hi); }
+    #rsvp p a:hover, .cta-band a[href^="mailto"]:hover { color: var(--silver-hi); }
 
     .rsvp-mat {
       position: relative;
@@ -741,6 +741,41 @@
       .btn, .btn::after, .card::before, .card::after, .dcard::before, a { transition: none; }
       .js .reveal { opacity: 1; translate: none; transition: none; }
     }
+
+    /* ===== metallic silver ===== */
+    :root {
+      --chrome-v: linear-gradient(180deg, #ffffff 0%, #dfe7ec 30%, #9eacb5 49%, #5f7079 52%, #c5d0d6 62%, #eef3f6 80%, #b4c0c7 100%);
+      --chrome-h: linear-gradient(100deg, #8e9ca5 0%, #eef3f6 20%, #aab7bf 38%, #ffffff 52%, #9aa8b1 68%, #e3eaee 84%, #8795a0 100%);
+    }
+
+    .hero .gala {
+      background:
+        linear-gradient(105deg, transparent 40%, rgba(255,255,255,.75) 50%, transparent 60%),
+        var(--chrome-v);
+      background-size: 260% 100%, 100% 100%;
+      background-position: 150% 0, 0 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 3px 0 rgba(0,0,0,.28)) drop-shadow(0 10px 28px rgba(0,0,0,.35));
+      animation: rise 1.4s var(--ease) 1.1s both, sheen 9s ease-in-out 3s infinite;
+    }
+    @keyframes sheen { 0%, 100% { background-position: 150% 0, 0 0; } 50% { background-position: -50% 0, 0 0; } }
+
+    .btn {
+      color: #082a32;
+      background: linear-gradient(180deg, #fbfdfe 0%, #d9e1e6 42%, #a3b0b8 52%, #dfe7eb 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -1px 0 rgba(0,0,0,.25), 0 6px 18px rgba(0,0,0,.35);
+    }
+    .btn:hover { background: linear-gradient(180deg, #ffffff 0%, #e8eef1 42%, #b4c0c7 52%, #eef3f6 100%); }
+    .btn::after { border-color: rgba(8,42,50,.28); }
+
+    .dcard .amt, .card .amt {
+      background: linear-gradient(180deg, #ffffff 0%, #e3eaee 55%, #b9c6cc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .section-title { text-shadow: 0 1px 0 rgba(0,0,0,.3); }
   </style>
 </head>
 <body>
@@ -1051,7 +1086,7 @@
           const g = ctx.createRadialGradient(l.x, l.y, 0, l.x, l.y, l.r * 6);
           g.addColorStop(0, 'rgba(246,226,168,' + alpha + ')');
           g.addColorStop(0.25, 'rgba(236,208,143,' + alpha * 0.45 + ')');
-          g.addColorStop(1, 'rgba(214,178,94,0)');
+          g.addColorStop(1, 'rgba(185,198,204,0)');
           ctx.fillStyle = g;
           ctx.beginPath(); ctx.arc(l.x, l.y, l.r * 6, 0, Math.PI * 2); ctx.fill();
         }

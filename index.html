@@ -171,7 +171,8 @@
 
     /* photo and title share one stage: the building fades into the navy page and the title sits in that dusk */
     .hero-stage {
-      --photo-h: clamp(360px, 58vh, 640px);
+      /* the photo is shown whole at its own proportions (1800 x 570), never cropped */
+      --photo-h: calc(min(100vw, 1480px) * 570 / 1800);
       display: grid;
     }
 
@@ -180,22 +181,29 @@
     .hero-photo {
       position: relative;
       z-index: 0;
+      width: min(100%, 1480px);
       height: var(--photo-h);
+      margin-inline: auto;
       align-self: start;
       background: var(--navy);
       animation: photoIn 1.6s var(--ease) .1s both;
     }
 
+    /* the lower edge melts into the page; on wide screens the sides do too */
     .hero-photo::after {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom,
-        rgba(7,16,30,.3) 0%,
-        rgba(7,16,30,0) 22%,
-        rgba(7,16,30,.5) 44%,
-        rgba(7,16,30,.85) 70%,
-        var(--navy) 96%);
+        rgba(7,16,30,.25) 0%,
+        rgba(7,16,30,0) 20%,
+        rgba(7,16,30,0) 52%,
+        rgba(7,16,30,.8) 82%,
+        var(--navy) 100%);
+    }
+
+    @media (min-width: 1500px) {
+      .hero-photo { -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); }
     }
 
     .hero-img {
@@ -203,14 +211,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 50% 30%;
-      filter: saturate(.88);
+      filter: saturate(.9);
     }
 
     .hero-text {
       z-index: 2;
       align-self: end;
-      padding-top: calc(var(--photo-h) * .56);
+      padding-top: calc(var(--photo-h) * .8);
     }
 
     .org {
@@ -451,50 +458,47 @@
 
     .section-sub.note { margin: 3rem auto 0; }
 
-    /* ---------- Tribute Committee: a ledger, one engraved line per level ---------- */
+    /* ---------- Tribute Committee: five levels side by side ---------- */
     .tiers {
-      max-width: 1040px;
-      margin-inline: auto;
-      border-top: 1px solid var(--line-strong);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      --cols: 1;
     }
+
+    .tiers > .card { flex: 0 0 calc((100% - (var(--cols) - 1) * 1.5rem) / var(--cols)); }
+
+    @media (min-width: 640px)  { .tiers { --cols: 2; } }
+    @media (min-width: 1000px) { .tiers { --cols: 3; } }
+    @media (min-width: 1300px) { .tiers { --cols: 5; } }
 
     .card {
       --tier: var(--gold);
       position: relative;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      grid-template-areas: "name amt" "list list";
-      align-items: center;
-      gap: .5rem 1.5rem;
-      padding: 1.9rem .25rem 2rem;
-      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      padding: 2.4rem 1.6rem 2.2rem;
+      background: var(--navy-2);
+      border: 1px solid var(--line);
+      border-top: 2px solid var(--tier);
+      border-radius: var(--radius);
+      transition: transform var(--slow), border-color var(--slow);
     }
 
-    .card.emerald { --tier: #3fae86; }
-    .card.ruby { --tier: #d4506a; }
-    .card.sapphire { --tier: #5b86e0; }
+    .card.emerald { --tier: #4fc9a0; }
+    .card.ruby { --tier: #e0566f; }
+    .card.sapphire { --tier: #5b8def; }
     .card.silver { --tier: #c9d1dc; }
 
     .card h3 {
-      grid-area: name;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
       font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3.4vw, 2.3rem);
+      font-size: clamp(1.8rem, 3vw, 2.1rem);
       font-weight: 500;
       line-height: 1.2;
+      text-align: center;
+      color: var(--tier);
       font-variation-settings: "opsz" 16;
-    }
-
-    /* a small facet in the level's stone colour: the only colour on the ledger */
-    .card h3::before {
-      content: '';
-      width: 9px;
-      height: 9px;
-      flex: none;
-      background: var(--tier);
-      transform: rotate(45deg);
     }
 
     .amt {
@@ -507,16 +511,22 @@
       font-variation-settings: "opsz" 16;
     }
 
-    .card .amt { grid-area: amt; text-align: right; }
+    .card .amt {
+      text-align: center;
+      color: var(--ivory);
+      margin: .5rem 0 1.4rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--line);
+    }
 
-    .card ul { grid-area: list; list-style: none; margin-top: .6rem; }
+    .card ul { list-style: none; flex-grow: 1; }
 
     .card li {
       position: relative;
       color: var(--ivory-2);
-      font-size: .98rem;
+      font-size: .95rem;
       line-height: 1.55;
-      padding: .3rem 0 .3rem 1.4rem;
+      padding: .35rem 0 .35rem 1.3rem;
       text-wrap: pretty;
     }
 
@@ -524,36 +534,13 @@
       content: '◆';
       position: absolute;
       left: 0;
-      top: .72rem;
-      color: var(--gold);
+      top: .78rem;
+      color: var(--tier);
       font-size: .45rem;
     }
 
-    @media (min-width: 800px) {
-      .card {
-        grid-template-columns: minmax(210px, .9fr) minmax(0, 1.6fr) auto;
-        grid-template-areas: "name list amt";
-        align-items: center;
-        gap: 3rem;
-        padding: 2.3rem 1.2rem;
-      }
-      .card ul { margin-top: 0; }
-    }
-
-    /* hover: a tint and a slim bar in the level's colour, slowly */
-    .card::before, .card::after {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity var(--slow);
-    }
-
-    .card::before { inset: 0; background: linear-gradient(90deg, rgba(214,178,94,.07), transparent 70%); }
-    .card::after { left: 0; top: 0; bottom: -1px; width: 2px; background: var(--tier); }
-
     @media (hover: hover) {
-      .card:hover::before, .card:hover::after { opacity: 1; }
+      .card:hover { transform: translateY(-4px); border-color: var(--tier); }
     }
 
     /* ---------- Digital tributes ---------- */

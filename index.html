@@ -702,7 +702,8 @@
       pointer-events: none;
     }
 
-    .rsvp-mat iframe { position: relative; outline: 1px solid var(--paper-line); }
+    .rsvp-mat iframe { position: relative; display: block; width: 100%; height: 1800px; border: 0; outline: 1px solid var(--paper-line); }
+    @media (max-width: 767px) { .rsvp-mat iframe { height: 2600px; } }
 
     .cta-band {
       padding: clamp(4.5rem, 8vw, 6.5rem) 0;
@@ -980,14 +981,13 @@
     <section id="rsvp" class="section band">
       <div class="container">
         <h2 class="section-title">RSVP & Tribute Form</h2>
-        <p>If the form doesn't load, <a href="https://jewishfredericksburg.ticketspice.com/chabad-of-fredericksburg-1st-annual-gala" target="_blank" rel="noopener">open it in a new tab</a>.</p>
+        <p>If the form doesn't load, <a href="https://jewishfredericksburg.ticketspice.com/chabad-of-fredericksburg-2nd-annual-gala" target="_blank" rel="noopener">open it in a new tab</a>.</p>
         <div class="rsvp-mat">
           <iframe
-            src="https://jewishfredericksburg.ticketspice.com/chabad-of-fredericksburg-1st-annual-gala"
-            title="Gala RSVP & Tribute Form"
+            src="https://jewishfredericksburg.ticketspice.com/chabad-of-fredericksburg-2nd-annual-gala"
+            title="Chabad of Fredericksburg 2nd Annual Gala"
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            style="width:100%; height:3500px; border:0; display:block;">
+            referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
       </div>

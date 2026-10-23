@@ -1137,7 +1137,7 @@
     .hero .gala { letter-spacing: .05em; }
     .theme, .section-sub, h1, h2 { text-wrap: balance; }
     .section-title + .host-box { margin-top: 3rem; }
-    #particles { opacity: .7; }
+    #particles { opacity: .75; }
 
     /* type: Bodoni for display, Instrument Sans for everything small */
     .brand, .org, .event-details h2, .detail-label, .live, .host-box .status { font-family: var(--font-caps); font-weight: 600; }
@@ -1512,7 +1512,7 @@
       }
       function init() {
         resize();
-        const n = Math.min(Math.floor((w * h) / 22000), 55);
+        const n = Math.min(Math.floor((w * h) / 30000), 36);
         lights = Array.from({ length: n }, () => make(true));
       }
       function draw() {
@@ -1545,6 +1545,8 @@
         const y = window.scrollY;
         const max = document.documentElement.scrollHeight - window.innerHeight;
         header.classList.toggle('scrolled', y > 24);
+        const lights = document.getElementById('particles');
+        if (lights) lights.style.opacity = Math.max(0, 0.75 * (1 - y / (window.innerHeight * 0.85)));
         header.style.setProperty('--p', (max > 0 ? Math.min(100, y / max * 100) : 0) + '%');
       }
       window.addEventListener('scroll', onScroll, { passive: true });
@@ -1573,24 +1575,6 @@
           const y = Math.min(window.scrollY, 900);
           photo.style.setProperty('--py', (y * 0.14) + 'px');
         }, { passive: true });
-      }
-
-      /* prices count up when they scroll into view */
-      function countUp(el) {
-        const m = el.textContent.match(/^(\D*)([\d,]+)(.*)$/);
-        if (!m || reduce) return;
-        const target = parseInt(m[2].replace(/,/g, ''), 10), t0 = performance.now(), dur = 1400;
-        (function tick(now) {
-          const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
-          el.textContent = m[1] + Math.round(target * e).toLocaleString('en-US') + m[3];
-          if (k < 1) requestAnimationFrame(tick);
-        })(t0);
-      }
-      if ('IntersectionObserver' in window) {
-        const io2 = new IntersectionObserver(es => es.forEach(e => {
-          if (e.isIntersecting) { countUp(e.target); io2.unobserve(e.target); }
-        }), { threshold: 0.6 });
-        document.querySelectorAll('.amt').forEach(el => io2.observe(el));
       }
 
       if (window.matchMedia('(hover: hover)').matches) {

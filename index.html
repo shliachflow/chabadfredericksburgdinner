@@ -304,7 +304,7 @@
     .divider {
       width: 220px;
       height: 1px;
-      margin: 1.8rem auto;
+      margin: 2.2rem auto 2.8rem;
       background: linear-gradient(90deg, transparent 0%, var(--gold) 25%, var(--gold-bright) 50%, var(--gold) 75%, transparent 100%);
       position: relative;
       animation: rise 1s ease 1.9s both;
@@ -321,19 +321,6 @@
 
     .divider::before { left: -14px; }
     .divider::after { right: -14px; }
-
-    .theme {
-      font-family: var(--font-display);
-      font-size: clamp(1.4rem, 3.4vw, 2.3rem);
-      font-style: italic;
-      font-weight: 400;
-      font-variation-settings: "opsz" 16;
-      margin: 0 auto 3.4rem;
-      max-width: 880px;
-      line-height: 1.35;
-      text-wrap: balance;
-      animation: rise 1s var(--ease) 2.1s both;
-    }
 
     .live {
       display: inline-flex;
@@ -767,7 +754,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .bsd, .hero-photo, .org, .hero .line, .hero .gala, .divider, .theme, .live { animation: none; }
+      .bsd, .hero-photo, .org, .hero .line, .hero .gala, .divider, .live { animation: none; }
       .btn, .card, .dcard { transition: none; }
       .card:hover { transform: none; }
       .js .reveal { opacity: 1; translate: none; transition: none; }
@@ -805,7 +792,6 @@
           </div>
         </div>
         <div class="divider" aria-hidden="true"></div>
-        <p class="theme">Shining Lights: Celebrating the Past, Inspiring the Future</p>
         <p class="live">Live Musical Evening with the <img src="shavrock-logo.png" alt="Shavrock" height="44"> Band</p>
 
         <div class="event-details">

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>1st Annual Gala – Chabad of Fredericksburg | Shining Lights</title>
-  <meta name="description" content="Join Chabad of Fredericksburg's 1st Annual Gala: Shining Lights. RSVP, sponsor, or place a digital tribute." />
+  <title>2nd Annual Gala – Chabad of Fredericksburg | Shining Lights</title>
+  <meta name="description" content="Join Chabad of Fredericksburg's 2nd Annual Gala, a live musical evening with the Shavrock Band. RSVP, sponsor, or place a digital tribute." />
   <meta name="theme-color" content="#07101e" />
 
   <!-- Fonts -->
@@ -359,6 +359,38 @@
 
     .divider::before { left: -14px; }
     .divider::after { right: -14px; }
+
+    .bsd {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      color: var(--gold-2);
+      opacity: .8;
+      padding: .45rem 0 0;
+      background: rgba(5,10,18,.9);
+    }
+
+    .live {
+      display: inline-block;
+      margin: -1.6rem auto 3.2rem;
+      padding: 0.7rem 1.8rem;
+      font-family: var(--font-caps);
+      font-size: clamp(.68rem, 1.8vw, .85rem);
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(214,178,94,.07);
+    }
+
+    .live strong {
+      color: var(--gold-bright);
+      font-weight: 700;
+    }
 
     .theme {
       font-family: var(--font-accent);
@@ -931,6 +963,7 @@
   </style>
 </head>
 <body>
+  <div class="bsd" aria-hidden="true">ב״ה</div>
   <canvas id="particles"></canvas>
 
   <header class="site-header">
@@ -951,7 +984,7 @@
           <div class="hero-text">
             <p class="org">Chabad of Fredericksburg</p>
             <h1>
-              <span class="line">1<sup>st</sup> Annual</span>
+              <span class="line">2<sup>nd</sup> Annual</span>
               <span class="gala">Gala</span>
             </h1>
           </div>
@@ -961,6 +994,7 @@
         </div>
         <div class="divider" aria-hidden="true"></div>
         <p class="theme">Shining Lights: Celebrating the Past, Inspiring the Future</p>
+        <p class="live">Live Musical Evening with the <strong>Shavrock</strong> Band</p>
 
         <div class="event-details">
           <h2>Event Details</h2>
@@ -978,9 +1012,9 @@
                   Date
                 </div>
                 <div class="detail-value">
-                  Tuesday, December 2, 2025
+                  Tuesday, December 1, 2026
                   <span class="date-divider">•</span>
-                  <span class="he">12 Kislev 5786</span>
+                  <span class="he">21 Kislev 5787</span>
                 </div>
               </div>
             </div>
@@ -1187,7 +1221,7 @@
   </main>
 
   <footer>
-    © 2025 Chabad of Fredericksburg
+    © 2026 Chabad of Fredericksburg
   </footer>
 
   <script>

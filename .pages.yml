@@ -1,0 +1,136 @@
+# Pages CMS (https://pagescms.org) configuration for the gala site.
+# Sign in at pagescms.org with a GitHub account that has write access to this repository.
+# Edits are saved to content/site.json; a GitHub Action then rebuilds the page automatically.
+
+media:
+  input: uploads
+  output: uploads
+
+content:
+  - name: site
+    label: Gala page
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: hero
+        label: Top of the page
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line above the title, type: string }
+          - { name: edition, label: Edition (for example "2nd Annual"), type: string }
+          - { name: word, label: Big word, type: string }
+          - { name: image, label: Main photo, type: image }
+          - { name: imageAlt, label: Photo description, type: string }
+      - name: live
+        label: Live music line
+        type: object
+        fields:
+          - { name: show, label: Show this line, type: boolean }
+          - { name: before, label: Words before the logo, type: string }
+          - { name: logo, label: Band logo, type: image }
+          - { name: logoAlt, label: Logo description, type: string }
+          - { name: after, label: Words after the logo, type: string }
+      - name: details
+        label: Event details
+        type: object
+        fields:
+          - { name: title, label: Card heading, type: string }
+          - { name: date, label: Date, type: string }
+          - { name: hebrewDate, label: Hebrew date, type: string }
+          - { name: time, label: Time, type: string }
+          - { name: venue, label: Venue, type: string }
+          - { name: address, label: Address, type: string }
+      - name: tributeCommittee
+        label: Tribute Committee levels
+        type: object
+        fields:
+          - { name: title, label: Section title, type: string }
+          - { name: subtitle, label: Line under the title, type: string }
+          - name: tiers
+            label: Levels
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Level name, type: string }
+              - { name: amount, label: Amount, type: string }
+              - name: tone
+                label: Color accent
+                type: select
+                options:
+                  values: [emerald, ruby, sapphire, gold, silver]
+              - { name: perks, label: What it includes, type: string, list: true }
+          - { name: note, label: Note under the levels, type: text }
+      - name: digitalTributes
+        label: Digital tributes
+        type: object
+        fields:
+          - { name: title, label: Section title, type: string }
+          - { name: subtitle, label: Line under the title, type: string }
+          - name: items
+            label: Tributes
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Name, type: string }
+              - { name: amount, label: Amount, type: string }
+              - { name: description, label: Description, type: string }
+          - { name: note, label: Note under the tributes, type: text }
+      - name: hosts
+        label: Host Committee
+        type: object
+        fields:
+          - { name: title, label: Section title, type: string }
+          - { name: names, label: Names, type: string, list: true }
+          - { name: status, label: Small label under the names, type: string }
+      - name: rsvp
+        label: RSVP form
+        type: object
+        fields:
+          - { name: title, label: Section title, type: string }
+          - { name: url, label: Ticket form address, type: string }
+          - { name: helpBefore, label: Help line, words before the link, type: string }
+          - { name: linkText, label: Help line, link words, type: string }
+          - { name: formTitle, label: Form name (for screen readers), type: string }
+      - name: cta
+        label: Main button
+        type: object
+        fields:
+          - { name: label, label: Button words, type: string }
+      - name: contact
+        label: Contact
+        type: object
+        fields:
+          - { name: before, label: Contact line, type: string }
+          - { name: email, label: Contact email, type: string }
+      - name: header
+        label: Top bar
+        type: object
+        fields:
+          - { name: blessing, label: Blessing at the very top, type: string }
+          - { name: brand, label: Organization name, type: string }
+          - { name: tagline, label: Tagline, type: string }
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - { name: text, label: Footer text, type: string }
+      - name: seo
+        label: Search and sharing
+        type: object
+        fields:
+          - { name: title, label: Page title, type: string }
+          - { name: description, label: Short description, type: text }
+          - { name: siteUrl, label: Site address, type: string }
+          - { name: shareImage, label: Picture shown when the link is shared, type: image }
+          - { name: shareImageAlt, label: Share picture description, type: string }
+          - { name: eventName, label: Event name (for Google), type: string }
+          - { name: startDate, label: Start date and time (for Google), type: string, description: "Format: 2026-12-01T18:00:00-05:00" }
+          - { name: performer, label: Performer, type: string }
+          - { name: organizationName, label: Organization name (for Google), type: string }
+          - { name: street, label: Street, type: string }
+          - { name: city, label: City, type: string }
+          - { name: state, label: State, type: string }
+          - { name: zip, label: ZIP, type: string }
+          - { name: latitude, label: Map latitude, type: number }
+          - { name: longitude, label: Map longitude, type: number }

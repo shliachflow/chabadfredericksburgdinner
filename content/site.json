@@ -1,0 +1,158 @@
+{
+  "seo": {
+    "title": "2nd Annual Gala – December 1, 2026 | Chabad of Fredericksburg",
+    "description": "Join Chabad of Fredericksburg for the 2nd Annual Gala on December 1, 2026 at 6:00 PM: dinner, a live musical evening with the Shavrock Band, and digital tributes. RSVP or sponsor.",
+    "siteUrl": "https://dinner.jewishfredericksburg.org/",
+    "shareImage": "og-image.png",
+    "shareImageAlt": "Chabad of Fredericksburg 2nd Annual Gala, December 1, 2026, in front of the Maxine and Carl D. Silver Chabad Jewish Center",
+    "eventName": "Chabad of Fredericksburg 2nd Annual Gala",
+    "startDate": "2026-12-01T18:00:00-05:00",
+    "performer": "Shavrock",
+    "organizationName": "Chabad of Fredericksburg",
+    "street": "1500 College Avenue",
+    "city": "Fredericksburg",
+    "state": "VA",
+    "zip": "22401",
+    "latitude": 38.3016,
+    "longitude": -77.4765
+  },
+  "header": {
+    "blessing": "ב״ה",
+    "brand": "Chabad of Fredericksburg",
+    "tagline": "Shining Lights Gala"
+  },
+  "cta": {
+    "label": "RSVP / Tribute"
+  },
+  "hero": {
+    "image": "gala-hero.jpg",
+    "imageAlt": "The Maxine and Carl D. Silver Chabad Jewish Center at UMW in Fredericksburg, Virginia",
+    "eyebrow": "Chabad of Fredericksburg",
+    "edition": "2nd Annual",
+    "word": "Gala"
+  },
+  "live": {
+    "show": true,
+    "before": "Live Musical Evening with the",
+    "logo": "shavrock-logo.png",
+    "logoAlt": "Shavrock",
+    "after": "Band"
+  },
+  "details": {
+    "title": "Event Details",
+    "date": "Tuesday, December 1, 2026",
+    "hebrewDate": "21 Kislev 5787",
+    "time": "6:00 PM",
+    "venue": "The Maxine and Carl D. Silver Chabad Jewish Center at UMW",
+    "address": "1500 College Avenue, Fredericksburg, VA 22401"
+  },
+  "tributeCommittee": {
+    "title": "Tribute Committee",
+    "subtitle": "Includes Dinner & Digital Tribute",
+    "note": "All Tribute Committee Donors ($1,800 and above) automatically receive Dinner Reservations and a Digital Tribute Display.",
+    "tiers": [
+      {
+        "name": "Emerald",
+        "tone": "emerald",
+        "amount": "$25,000",
+        "perks": [
+          "Dinner Reservations",
+          "Premier Recognition on Digital Tribute Display",
+          "Prominent Mention in Event Materials"
+        ]
+      },
+      {
+        "name": "Ruby",
+        "tone": "ruby",
+        "amount": "$18,000",
+        "perks": [
+          "Dinner Reservations",
+          "Featured Recognition on Digital Tribute Display",
+          "Mention in Event Materials"
+        ]
+      },
+      {
+        "name": "Sapphire",
+        "tone": "sapphire",
+        "amount": "$10,000",
+        "perks": [
+          "Dinner Reservations",
+          "Prominent Recognition on Digital Tribute Display"
+        ]
+      },
+      {
+        "name": "Gold",
+        "tone": "gold",
+        "amount": "$3,600",
+        "perks": [
+          "Dinner Reservations",
+          "Recognition on Digital Tribute Display"
+        ]
+      },
+      {
+        "name": "Silver",
+        "tone": "silver",
+        "amount": "$1,800",
+        "perks": [
+          "Dinner Reservations",
+          "Recognition on Digital Tribute Display"
+        ]
+      }
+    ]
+  },
+  "digitalTributes": {
+    "title": "Digital Tributes",
+    "subtitle": "Displayed on a loop throughout the evening",
+    "note": "Digital Tribute Donors are warmly recognized on-screen throughout the Gala program. The complete Tribute Presentation will loop continuously.",
+    "items": [
+      {
+        "title": "Full-Screen Digital Tribute",
+        "amount": "$1,000",
+        "description": "Full-screen message or photo displayed on loop"
+      },
+      {
+        "title": "Half-Screen Digital Tribute",
+        "amount": "$720",
+        "description": "Half-screen message displayed on loop"
+      },
+      {
+        "title": "Quarter-Screen Digital Tribute",
+        "amount": "$360",
+        "description": "Quarter-screen message displayed on loop"
+      },
+      {
+        "title": "Name Listing (Supporter Scroll)",
+        "amount": "$250",
+        "description": "Name displayed on supporter scroll loop"
+      }
+    ]
+  },
+  "hosts": {
+    "title": "Host Committee",
+    "names": [
+      "Mushky & Rabbi Shaya Gourarie",
+      "Nechomie & Rabbi Yossel Kranz",
+      "Deborah & Larry D. Silver",
+      "Dr. Kelly & Dr. Troy Paino",
+      "Spencer Silver",
+      "Rhonda & Adam Fried",
+      "Wendy Rice & Jeff Small",
+      "Rabbi Josh Broide"
+    ],
+    "status": "In formation"
+  },
+  "rsvp": {
+    "title": "RSVP & Tribute Form",
+    "helpBefore": "If the form doesn't load,",
+    "linkText": "open it in a new tab",
+    "url": "https://jewishfredericksburg.ticketspice.com/chabad-of-fredericksburg-2nd-annual-gala",
+    "formTitle": "Chabad of Fredericksburg 2nd Annual Gala"
+  },
+  "contact": {
+    "before": "Questions? Email",
+    "email": "rabbi@jewishumw.org"
+  },
+  "footer": {
+    "text": "© 2026 Chabad of Fredericksburg"
+  }
+}

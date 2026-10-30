@@ -115,6 +115,49 @@ content:
         type: object
         fields:
           - { name: text, label: Footer text, type: string }
+      - name: design
+        label: Look and feel
+        type: object
+        fields:
+          - name: theme
+            label: Color theme
+            type: select
+            options:
+              values: [platinum, sapphire, steel, turquoise, gold]
+          - { name: lights, label: Floating lights at the top, type: boolean }
+      - name: layout
+        label: Page sections (advanced; the Gala site editor is easier for this)
+        type: object
+        list: true
+        fields:
+          - { name: id, label: Id (do not change), type: string }
+          - name: type
+            label: Type (do not change)
+            type: select
+            options:
+              values: [tiers, tributes, hosts, rsvp, cta, text, photo, cards, schedule, faq, banner]
+          - { name: visible, label: Shown on the page, type: boolean }
+          - { name: title, label: Heading, type: string }
+          - { name: subtitle, label: Line under the heading, type: string }
+          - { name: body, label: Words, type: text }
+          - { name: text, label: Sentence, type: text }
+          - { name: note, label: Note underneath, type: text }
+          - { name: image, label: Picture, type: image }
+          - { name: imageAlt, label: Picture description, type: string }
+          - { name: flip, label: Picture on the right, type: boolean }
+          - { name: buttonLabel, label: Button words, type: string }
+          - { name: buttonUrl, label: Button goes to, type: string }
+          - name: items
+            label: Entries
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: amount, label: Amount or label, type: string }
+              - { name: description, label: Description, type: text }
+              - { name: time, label: Time, type: string }
+              - { name: question, label: Question, type: string }
+              - { name: answer, label: Answer, type: text }
       - name: seo
         label: Search and sharing
         type: object

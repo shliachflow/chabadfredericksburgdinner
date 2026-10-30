@@ -1,6 +1,7 @@
 # Search engines and AI assistants are welcome to read and cite this page.
 User-agent: *
 Allow: /
+Disallow: /editor/
 
 User-agent: GPTBot
 Allow: /

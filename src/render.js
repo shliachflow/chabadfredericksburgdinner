@@ -170,8 +170,8 @@
     return '    <section id="rsvp" class="' + bandCls(band) + '">\n      <div class="container">\n        <h2 class="section-title">' + esc(r.title) + '</h2>\n' +
       '        <p>' + esc(r.helpBefore) + ' <a href="' + url(r.url) + '" target="_blank" rel="noopener">' + esc(r.linkText) + '</a>.</p>\n' +
       '        <div class="rsvp-mat pending">\n          <iframe\n            id="ticket-form"\n            src="' + url(r.url) + '"\n            title="' + esc(r.formTitle) + '"\n' +
-      '            referrerpolicy="no-referrer-when-downgrade"\n            onload="var m=this.parentNode;setTimeout(function(){m.classList.remove(\'pending\')},900)">\n          </iframe>\n        </div>\n' +
-      '        <noscript><style>.rsvp-mat.pending::after{display:none}.rsvp-mat.pending iframe{height:2900px}</style></noscript>\n      </div>\n    </section>';
+      '            loading="eager"\n            referrerpolicy="no-referrer-when-downgrade"\n            onload="this.parentNode.classList.remove(\'pending\')">\n          </iframe>\n        </div>\n' +
+      '        <noscript><style>.rsvp-mat.pending::after{display:none}.rsvp-mat iframe{height:2900px}</style></noscript>\n      </div>\n    </section>';
   }
 
   function secCta(c) {

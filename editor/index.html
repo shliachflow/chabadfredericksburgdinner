@@ -311,6 +311,7 @@
       { path: 'live.show', label: 'Show the live music line', type: 'toggle' },
       { path: 'live.before', label: 'Live music line: words before the logo', type: 'text', showIf: 'live.show' },
       { path: 'live.logo', label: 'Band logo', type: 'image', kind: 'logo', showIf: 'live.show' },
+      { path: 'live.logoUrl', label: 'Band logo link (optional)', type: 'url', showIf: 'live.show', hint: 'Where people go when they click the logo, for example the band\'s page. Starts with https://. Leave empty for no link.' },
       { path: 'live.after', label: 'Live music line: words after the logo', type: 'text', showIf: 'live.show' }
     ]},
     { id: 'details', help: "The date, time and place. Changing the date? Use the dashed box first.", title: 'Event details', sub: 'Date, time and place', jump: '.event-details', fields: [
@@ -958,6 +959,7 @@
     var req = [['header.brand', 'Organization name'], ['hero.word', 'Big word'], ['hero.edition', 'Edition'], ['details.date', 'Date'], ['details.time', 'Time'], ['details.venue', 'Venue'], ['details.address', 'Address'], ['seo.title', 'Page title'], ['seo.description', 'Short description'], ['cta.label', 'Main button words']];
     req.forEach(function (r) { if (!String(getp(w, r[0]) || '').trim()) p.push(r[1] + ' can’t be empty.'); });
     if (!/^https:\/\//i.test(w.rsvp.url || '')) p.push('The ticket form address must start with https://');
+    if (w.live.show && w.live.logoUrl && !/^https:\/\//i.test(w.live.logoUrl)) p.push('The band logo link must start with https:// (or be left empty).');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(w.contact.email || '')) p.push('The contact email doesn’t look right.');
     if (isNaN(Date.parse(w.seo.startDate || ''))) p.push('Google’s start date isn’t a valid date. Use "Fill in the date for me" in Event details.');
     var shown = function (type) { return w.layout.some(function (it) { return it.type === type && it.visible !== false; }); };

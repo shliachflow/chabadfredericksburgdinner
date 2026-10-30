@@ -237,8 +237,11 @@
     var resolve = (opts && opts.resolveAsset) || function (p) { return p; };
     var h = c.hero, l = c.live, d = c.details, r = c.rsvp;
 
+    var logoImg = '<img src="' + esc(resolve(l.logo)) + '" alt="' + esc(l.logoAlt) + '" height="44">';
+    var logoHref = /^https?:\/\//i.test(String(l.logoUrl || '').trim()) ? url(String(l.logoUrl).trim()) : '';
+    var logo = logoHref ? '<a class="logo-link" href="' + logoHref + '" target="_blank" rel="noopener noreferrer" aria-label="' + esc(l.logoAlt) + ' (opens in a new tab)">' + logoImg + '</a>' : logoImg;
     var live = l.show
-      ? '        <p class="live">' + esc(l.before) + ' <img src="' + esc(resolve(l.logo)) + '" alt="' + esc(l.logoAlt) + '" height="44"> ' + esc(l.after) + '</p>\n'
+      ? '        <p class="live">' + esc(l.before) + ' ' + logo + ' ' + esc(l.after) + '</p>\n'
       : '';
 
     var dateHtml = '\n                  ' + esc(d.date) + (d.hebrewDate
@@ -269,7 +272,7 @@
   function llms(c) {
     var s = c.seo, d = c.details, L = [];
     L.push('# ' + s.eventName, '', '> Formal fundraising gala hosted by ' + s.organizationName + ' (' + s.city + ', ' + s.state + '): dinner' +
-      (c.live.show ? ', a live musical evening with the ' + s.performer + ' ' + c.live.after : '') + ', and sponsor and digital tribute opportunities.', '', '## Event facts',
+      (c.live.show ? ', a live concert with the ' + s.performer + ' ' + c.live.after : '') + ', and sponsor and digital tribute opportunities.', '', '## Event facts',
       '- Event: ' + s.eventName, '- Date: ' + d.date + (d.hebrewDate ? ' (' + d.hebrewDate + ')' : ''), '- Time: ' + d.time + ' (Eastern Time)',
       '- Venue: ' + d.venue, '- Address: ' + d.address + ', United States',
       c.live.show ? '- Entertainment: ' + c.live.before + ' ' + s.performer + ' ' + c.live.after : '', '- Organizer: ' + s.organizationName, '- Contact: ' + c.contact.email, '',
@@ -279,7 +282,9 @@
     c.digitalTributes.items.forEach(function (t) { L.push('- ' + t.title + ': ' + t.amount); });
     L.push('', '## ' + c.hosts.title + (c.hosts.status ? ' (' + c.hosts.status.toLowerCase() + ')' : ''), c.hosts.names.join(', '));
     llmsExtra(c).forEach(function (x) { L.push(x); });
-    L.push('', '## Links', '- Event page: ' + s.siteUrl, '- RSVP, tickets and tributes: ' + c.rsvp.url, '');
+    L.push('', '## Links', '- Event page: ' + s.siteUrl, '- RSVP, tickets and tributes: ' + c.rsvp.url);
+    if (c.live.show && c.live.logoUrl) L.push('- ' + s.performer + ' (the band): ' + c.live.logoUrl);
+    L.push('');
     return L.filter(function (x, i, a) { return !(x === '' && a[i - 1] === ''); }).join('\n');
   }
 

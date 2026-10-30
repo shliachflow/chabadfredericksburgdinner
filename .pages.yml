@@ -30,6 +30,7 @@ content:
           - { name: before, label: Words before the logo, type: string }
           - { name: logo, label: Band logo, type: image }
           - { name: logoAlt, label: Logo description, type: string }
+          - { name: logoUrl, label: Band logo link (starts with https://), type: string }
           - { name: after, label: Words after the logo, type: string }
       - name: details
         label: Event details

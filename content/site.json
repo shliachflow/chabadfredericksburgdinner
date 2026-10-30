@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "2nd Annual Gala – December 1, 2026 | Chabad of Fredericksburg",
-    "description": "Join Chabad of Fredericksburg for the 2nd Annual Gala on December 1, 2026 at 6:00 PM: dinner, a live musical evening with the Shavrock Band, and digital tributes. RSVP or sponsor.",
+    "description": "Join Chabad of Fredericksburg for the 2nd Annual Gala on December 1, 2026 at 6:00 PM: dinner, a live concert with the Shavrock Band, and digital tributes. RSVP or sponsor.",
     "siteUrl": "https://dinner.jewishfredericksburg.org/",
     "shareImage": "og-image.png",
     "shareImageAlt": "Chabad of Fredericksburg 2nd Annual Gala, December 1, 2026, in front of the Maxine and Carl D. Silver Chabad Jewish Center",
@@ -64,9 +64,10 @@
   },
   "live": {
     "show": true,
-    "before": "Live Musical Evening with the",
+    "before": "Live Concert with the",
     "logo": "shavrock-logo.png",
     "logoAlt": "Shavrock",
+    "logoUrl": "https://linktr.ee/shavrockband",
     "after": "Band"
   },
   "details": {

@@ -135,6 +135,37 @@
     .progress { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin: .8rem 0; }
     .progress i { display: block; height: 100%; width: 0; background: var(--silver-hi); transition: width .3s; }
 
+    /* ---------- sections list, drag handles, theme picker ---------- */
+    .grip { appearance: none; border: 1px solid var(--line); background: transparent; width: 32px; height: 32px; border-radius: 3px; cursor: grab; color: var(--muted);
+      font-size: 1.05rem; line-height: 1; touch-action: none; flex: none; user-select: none; }
+    .grip:hover { border-color: var(--silver-hi); color: var(--text); }
+    .dragging { opacity: .85; outline: 2px solid var(--silver-hi); outline-offset: 2px; position: relative; z-index: 3; box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+    body.is-dragging, body.is-dragging * { cursor: grabbing !important; user-select: none; }
+    .seclist { display: grid; gap: .5rem; }
+    .secitem { border: 1px solid var(--line); border-radius: 3px; background: var(--panel-2); }
+    .secitem.off { opacity: .6; }
+    .sechead { display: flex; align-items: center; gap: .5rem; padding: .5rem .6rem; flex-wrap: wrap; }
+    .sechead .name { min-width: 0; flex: 1 1 150px; }
+    .secctl { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin-left: auto; }
+    .sechead .name b { display: block; font: 500 1rem var(--display); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sechead .name span { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .secbody { padding: .8rem; border-top: 1px solid var(--line); display: grid; gap: .7rem; }
+    .fixednote { font-size: .82rem; color: var(--muted); border: 1px dashed var(--line-2); border-radius: 3px; padding: .55rem .7rem; }
+    .pill { appearance: none; border: 1px solid var(--line-2); background: transparent; color: var(--text); border-radius: 999px; padding: .2rem .7rem; font-size: .78rem; font-weight: 600; cursor: pointer; min-height: 30px; }
+    .pill[aria-pressed=true] { background: var(--silver); color: #082a32; border-color: var(--silver); }
+    .pill:disabled { opacity: .5; cursor: not-allowed; }
+    .themes { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .6rem; }
+    .theme { appearance: none; text-align: left; border: 1px solid var(--line-2); background: var(--panel-2); border-radius: 3px; padding: .6rem; cursor: pointer; display: grid; gap: .5rem; }
+    .theme:hover { border-color: var(--silver-hi); }
+    .theme[aria-checked=true] { border-color: var(--silver-hi); box-shadow: 0 0 0 2px rgba(221,230,233,.35); }
+    .theme .sw { display: flex; height: 26px; border: 1px solid rgba(255,255,255,.18); }
+    .theme .sw i { flex: 1; }
+    .theme b { font: 600 .85rem var(--body); } .theme small { color: var(--muted); font-size: .76rem; }
+    .typelist { display: grid; gap: .5rem; margin: .6rem 0 1rem; }
+    .typebtn { appearance: none; text-align: left; border: 1px solid var(--line-2); background: var(--bg); border-radius: 3px; padding: .7rem .8rem; cursor: pointer; }
+    .typebtn:hover, .typebtn:focus-visible { border-color: var(--silver-hi); background: rgba(185,198,204,.08); }
+    .typebtn b { display: block; font: 500 1.1rem var(--display); } .typebtn span { color: var(--muted); font-size: .85rem; }
+
     @media (max-width: 920px) {
       .topbar { padding: .5rem .75rem; gap: .5rem; }
       .topbar h1 { font-size: 1.05rem; flex: 1 1 100%; margin-right: 0; display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
@@ -279,6 +310,7 @@
       { path: 'details.venue', label: 'Venue', type: 'text' },
       { path: 'details.address', label: 'Address', type: 'text' }
     ]},
+    { id: 'sections', title: 'Page sections', sub: 'Reorder, hide or add sections', jump: null, fields: [ { type: 'sections' } ] },
     { id: 'tiers', title: 'Tribute Committee levels', sub: 'Emerald, Ruby, Sapphire…', jump: '.tiers', fields: [
       { path: 'tributeCommittee.title', label: 'Section title', type: 'text' },
       { path: 'tributeCommittee.subtitle', label: 'Line under the title', type: 'text' },
@@ -319,6 +351,7 @@
       { path: 'contact.email', label: 'Contact email', type: 'email' },
       { path: 'footer.text', label: 'Footer text', type: 'text' }
     ]},
+    { id: 'design', title: 'Look and feel', sub: 'Colors and effects', jump: null, fields: [ { type: 'design' } ] },
     { id: 'header', title: 'Top bar', sub: 'Name and tagline', jump: '.site-header', fields: [
       { path: 'header.brand', label: 'Organization name', type: 'text' },
       { path: 'header.tagline', label: 'Tagline under the name', type: 'text' },
@@ -341,6 +374,57 @@
         { path: 'seo.latitude', label: 'Map latitude', type: 'number' }, { path: 'seo.longitude', label: 'Map longitude', type: 'number' } ] }
     ]}
   ];
+
+  /* Sections that can be added. Each looks like the rest of the page automatically. */
+  var BLOCKS = {
+    text: { label: 'Text section', desc: 'A heading with a few paragraphs.',
+      blank: function () { return { title: 'New section', subtitle: '', body: 'Write something here.' }; },
+      fields: [ { path: 'title', label: 'Heading', type: 'text' }, { path: 'subtitle', label: 'Line under the heading (optional)', type: 'text' },
+        { path: 'body', label: 'Words', type: 'textarea', hint: 'Leave a blank line between paragraphs.' } ] },
+    photo: { label: 'Photo and text', desc: 'A picture beside some words.',
+      blank: function () { return { title: 'New section', body: 'Write something here.', image: '', imageAlt: '', flip: false }; },
+      fields: [ { path: 'title', label: 'Heading', type: 'text' }, { path: 'body', label: 'Words', type: 'textarea', hint: 'Leave a blank line between paragraphs.' },
+        { path: 'image', label: 'Picture', type: 'image', kind: 'block' }, { path: 'imageAlt', label: 'Picture description (for screen readers and search)', type: 'text' },
+        { path: 'flip', label: 'Put the picture on the right', type: 'toggle' } ] },
+    cards: { label: 'Row of boxes', desc: 'Boxes with a title and short text, like the digital tributes.',
+      blank: function () { return { title: 'New section', subtitle: '', note: '', items: [ { title: 'First box', amount: '', description: 'A short description.' }, { title: 'Second box', amount: '', description: 'A short description.' } ] }; },
+      fields: [ { path: 'title', label: 'Heading', type: 'text' }, { path: 'subtitle', label: 'Line under the heading (optional)', type: 'text' },
+        { path: 'items', label: 'Boxes', type: 'repeat', itemName: 'title', addLabel: 'Add a box', blank: { title: 'New box', amount: '', description: '' },
+          fields: [ { path: 'title', label: 'Title', type: 'text' }, { path: 'amount', label: 'Amount or label (optional)', type: 'text' }, { path: 'description', label: 'Description', type: 'text' } ] },
+        { path: 'note', label: 'Note underneath (optional)', type: 'textarea' } ] },
+    schedule: { label: 'Program / schedule', desc: 'Times and what happens at each.',
+      blank: function () { return { title: 'The Evening', subtitle: '', note: '', items: [ { time: '6:00 PM', title: 'Reception', description: '' }, { time: '7:00 PM', title: 'Dinner', description: '' } ] }; },
+      fields: [ { path: 'title', label: 'Heading', type: 'text' }, { path: 'subtitle', label: 'Line under the heading (optional)', type: 'text' },
+        { path: 'items', label: 'Program', type: 'repeat', itemName: 'title', addLabel: 'Add an item', blank: { time: '', title: 'New item', description: '' },
+          fields: [ { path: 'time', label: 'Time', type: 'text' }, { path: 'title', label: 'What happens', type: 'text' }, { path: 'description', label: 'Details (optional)', type: 'text' } ] },
+        { path: 'note', label: 'Note underneath (optional)', type: 'textarea' } ] },
+    faq: { label: 'Questions and answers', desc: 'Questions that open to show the answer.',
+      blank: function () { return { title: 'Questions', subtitle: '', items: [ { question: 'A common question?', answer: 'The answer.' } ] }; },
+      fields: [ { path: 'title', label: 'Heading', type: 'text' }, { path: 'subtitle', label: 'Line under the heading (optional)', type: 'text' },
+        { path: 'items', label: 'Questions', type: 'repeat', itemName: 'question', addLabel: 'Add a question', blank: { question: 'New question?', answer: '' },
+          fields: [ { path: 'question', label: 'Question', type: 'text' }, { path: 'answer', label: 'Answer', type: 'textarea' } ] } ] },
+    banner: { label: 'Banner with a button', desc: 'A headline, a sentence and a button.',
+      blank: function () { return { title: 'New banner', text: 'A sentence about it.', buttonLabel: 'Learn more', buttonUrl: '#rsvp' }; },
+      fields: [ { path: 'title', label: 'Headline', type: 'text' }, { path: 'text', label: 'Sentence', type: 'textarea' },
+        { path: 'buttonLabel', label: 'Button words (leave empty for no button)', type: 'text' },
+        { path: 'buttonUrl', label: 'Button goes to', type: 'text', hint: 'A web address starting with https://, or #rsvp to jump to the ticket form.' } ] }
+  };
+  /* The sections that are always part of the page (they can be moved or hidden, but not deleted). */
+  var BUILTIN = {
+    tiers:    { name: function (c) { return c.tributeCommittee.title; }, note: 'Sponsor levels', group: 'tiers' },
+    tributes: { name: function (c) { return c.digitalTributes.title; }, note: 'Digital tributes', group: 'digital' },
+    hosts:    { name: function (c) { return c.hosts.title; }, note: 'Host names', group: 'hosts' },
+    rsvp:     { name: function (c) { return c.rsvp.title; }, note: 'Ticket form', group: 'rsvp', locked: true },
+    cta:      { name: function () { return 'Contact strip'; }, note: 'Button and email', group: 'rsvp' }
+  };
+  function sectionName(it, c) { c = c || work; return BUILTIN[it.type] ? BUILTIN[it.type].name(c) : (it.title || BLOCKS[it.type].label); }
+  function normalize(c) {
+    if (!c.design) c.design = {};
+    if (!c.design.theme) c.design.theme = 'platinum';
+    if (c.design.lights === undefined) c.design.lights = true;
+    if (!Array.isArray(c.layout) || !c.layout.length) c.layout = clone(GalaRender.DEFAULT_LAYOUT);
+    return c;
+  }
 
   /* ===================== GitHub API ===================== */
   function friendly(status, body) {
@@ -417,7 +501,7 @@
   function openEditor() {
     return Promise.all([readContent(), fetch(TEMPLATE_URL, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Could not load the page design.'); return r.text(); })])
       .then(function (res) {
-        saved = res[0].content; loadedBlobSha = res[0].sha; template = res[1];
+        saved = normalize(res[0].content); loadedBlobSha = res[0].sha; template = res[1];
         work = clone(saved);
         var draft = null; try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) {}
         show('login', false); show('app', true);
@@ -479,7 +563,7 @@
       list.forEach(function (v, i) {
         var inp = el('input', { type: 'text' }); inp.value = v;
         inp.addEventListener('input', function () { list[i] = inp.value; onEdit(); });
-        var row = el('div', { class: 'string-row' }, [inp]);
+        var row = el('div', { class: 'string-row' }, f.reorder ? [el('button', { class: 'grip', type: 'button', title: 'Drag to reorder', 'aria-label': 'Drag to reorder', text: '⠿' }), inp] : [inp]);
         if (f.reorder) {
           row.appendChild(el('button', { class: 'iconbtn', type: 'button', title: 'Move up', 'aria-label': 'Move up', text: '↑', disabled: i === 0, onclick: function () { list.splice(i - 1, 0, list.splice(i, 1)[0]); draw(); onEdit(); } }));
           row.appendChild(el('button', { class: 'iconbtn', type: 'button', title: 'Move down', 'aria-label': 'Move down', text: '↓', disabled: i === list.length - 1, onclick: function () { list.splice(i + 1, 0, list.splice(i, 1)[0]); draw(); onEdit(); } }));
@@ -490,6 +574,7 @@
       box.appendChild(el('div', {}, [el('button', { class: 'btn small', type: 'button', text: '+ ' + (f.addLabel || 'Add'), onclick: function () { list.push(''); draw(); onEdit(); var ins = box.querySelectorAll('input'); ins[ins.length - 1].focus(); } })]));
     }
     draw();
+    if (f.reorder) sortable(box, '.string-row', '.grip', function (from, to) { moveIn(list, from, to); draw(); onEdit(); });
     var wrap = el('div', { class: 'field' }, [el('span', { text: f.label }), box]);
     if (f.hint) wrap.appendChild(el('small', { class: 'hint', text: f.hint }));
     return wrap;
@@ -511,7 +596,7 @@
           if (sf.path === f.itemName && input) input.addEventListener('input', function () { title.textContent = input.value || 'Untitled'; });
           body.appendChild(node);
         });
-        var head = el('div', { class: 'item-head' }, [title,
+        var head = el('div', { class: 'item-head' }, [el('button', { class: 'grip', type: 'button', title: 'Drag to reorder', 'aria-label': 'Drag to reorder', text: '⠿' }), title,
           el('button', { class: 'iconbtn', type: 'button', text: '↑', title: 'Move up', 'aria-label': 'Move up', disabled: i === 0, onclick: function () { list.splice(i - 1, 0, list.splice(i, 1)[0]); draw(); onEdit(); } }),
           el('button', { class: 'iconbtn', type: 'button', text: '↓', title: 'Move down', 'aria-label': 'Move down', disabled: i === list.length - 1, onclick: function () { list.splice(i + 1, 0, list.splice(i, 1)[0]); draw(); onEdit(); } }),
           el('button', { class: 'iconbtn', type: 'button', text: '✕', title: 'Remove', 'aria-label': 'Remove ' + (item[f.itemName] || 'item'), onclick: function () {
@@ -521,6 +606,7 @@
       box.appendChild(el('div', {}, [el('button', { class: 'btn small', type: 'button', text: '+ ' + f.addLabel, onclick: function () { list.push(clone(f.blank)); draw(); onEdit(); } })]));
     }
     draw();
+    sortable(box, '.item', '.grip', function (from, to) { moveIn(list, from, to); draw(); onEdit(); });
     return el('div', { class: 'field' }, [el('span', { text: f.label }), box]);
   }
 
@@ -548,7 +634,7 @@
     var cur = getp(obj, path);
     var thumb = el('div', { class: 'thumb' + (f.kind === 'hero' ? ' cover' : '') });
     var note = el('small', { class: 'hint' });
-    function drawThumb() { var p = getp(obj, path); thumb.style.backgroundImage = 'url("' + (pendingAssets[p] ? pendingAssets[p].dataUrl : SITE_ROOT + p) + '")'; note.textContent = p; }
+    function drawThumb() { var p = getp(obj, path); thumb.style.backgroundImage = p ? 'url("' + (pendingAssets[p] ? pendingAssets[p].dataUrl : SITE_ROOT + p) + '")' : 'none'; note.textContent = p || 'No picture yet'; }
     var file = el('input', { type: 'file', accept: 'image/*', hidden: true });
     file.addEventListener('change', function () {
       if (!file.files[0]) return;
@@ -603,19 +689,128 @@
       inp, btn]);
   }
 
-  function renderGroupFields(group, body, rerender) {
-    group.fields.forEach(function (f) {
+  function openGroup(id) {
+    var d = $('forms').querySelector('details[data-id="' + id + '"]'); if (!d) return;
+    d.open = true; setTimeout(function () { d.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+  }
+  function sectionsField() {
+    var box = el('div', { class: 'field' }), list = el('div', { class: 'seclist' }), openId = null;
+    function addDialog() {
+      var types = el('div', { class: 'typelist' }, Object.keys(BLOCKS).map(function (k) {
+        return el('button', { class: 'typebtn', type: 'button', onclick: function () {
+          var it = Object.assign({ id: 'b_' + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36), type: k, visible: true }, BLOCKS[k].blank());
+          var at = work.layout.findIndex(function (x) { return x.type === 'cta'; }); if (at < 0) at = work.layout.length;
+          work.layout.splice(at, 0, it); openId = it.id; closeModal(); draw(); onEdit();
+          setTimeout(function () { jump('[data-block="' + it.id + '"]'); }, 700);
+        } }, [el('b', { text: BLOCKS[k].label }), el('span', { text: BLOCKS[k].desc })]);
+      }));
+      modal('Add a section', el('div', {}, [el('p', { text: 'Pick what to add. It will appear near the bottom of the page, and you can drag it anywhere.' }), types]), [{ label: 'Cancel', onclick: closeModal }]);
+    }
+    function draw() {
+      list.innerHTML = '';
+      work.layout.forEach(function (it, i) {
+        var built = BUILTIN[it.type], blk = BLOCKS[it.type]; if (!built && !blk) return;
+        var on = it.visible !== false, nameB = el('b', { text: sectionName(it) });
+        var ctl = el('div', { class: 'secctl' }, [
+          el('button', { class: 'pill', type: 'button', 'aria-pressed': String(on), disabled: !!(built && built.locked), title: built && built.locked ? 'The buttons jump to the ticket form, so it stays.' : (on ? 'Click to hide this section' : 'Click to show this section'),
+            text: on ? 'Shown' : 'Hidden', onclick: function () { it.visible = !on; draw(); onEdit(); } }),
+          built ? el('button', { class: 'btn small', type: 'button', text: 'Edit words', onclick: function () { openGroup(built.group); } })
+                : el('button', { class: 'btn small', type: 'button', text: openId === it.id ? 'Close' : 'Edit', onclick: function () { openId = openId === it.id ? null : it.id; draw(); if (openId) jump('[data-block="' + it.id + '"]'); } }),
+          el('button', { class: 'iconbtn', type: 'button', text: '↑', title: 'Move up', 'aria-label': 'Move up', disabled: i === 0, onclick: function () { moveIn(work.layout, i, i - 1); draw(); onEdit(); } }),
+          el('button', { class: 'iconbtn', type: 'button', text: '↓', title: 'Move down', 'aria-label': 'Move down', disabled: i === work.layout.length - 1, onclick: function () { moveIn(work.layout, i, i + 1); draw(); onEdit(); } })
+        ]);
+        if (!built) ctl.appendChild(el('button', { class: 'iconbtn', type: 'button', text: '✕', title: 'Remove this section', 'aria-label': 'Remove ' + sectionName(it), onclick: function () {
+          if (confirm('Remove the section "' + sectionName(it) + '"?')) { work.layout.splice(i, 1); draw(); onEdit(); } } }));
+        var head = el('div', { class: 'sechead' }, [
+          el('button', { class: 'grip', type: 'button', title: 'Drag to reorder', 'aria-label': 'Drag ' + sectionName(it) + ' to reorder', text: '⠿' }),
+          el('div', { class: 'name' }, [nameB, el('span', { text: built ? built.note : blk.label })]),
+          ctl
+        ]);
+        var node = el('div', { class: 'secitem' + (on ? '' : ' off') }, [head]);
+        if (!built && openId === it.id) {
+          var body = el('div', { class: 'secbody' });
+          renderFieldList(blk.fields, it, body, function () { draw(); });
+          var t = body.querySelector('input[type=text]'); if (t) t.addEventListener('input', function () { nameB.textContent = it.title || blk.label; });
+          node.appendChild(body);
+        }
+        list.appendChild(node);
+      });
+      list.appendChild(el('div', {}, [el('button', { class: 'btn small', type: 'button', text: '+ Add a section', onclick: addDialog })]));
+    }
+    draw();
+    sortable(list, '.secitem', '.grip', function (from, to) { moveIn(work.layout, from, to); draw(); onEdit(); });
+    box.appendChild(el('div', { class: 'fixednote', text: 'The top of the page (photo, title and event details) always stays first. Drag the ⠿ handle, or use the arrows, to reorder the sections below it.' }));
+    box.appendChild(list);
+    return box;
+  }
+  function designField() {
+    var box = el('div', { class: 'field' });
+    function draw() {
+      box.innerHTML = '';
+      box.appendChild(el('span', { text: 'Color theme' }));
+      var grid = el('div', { class: 'themes', role: 'radiogroup', 'aria-label': 'Color theme' });
+      GalaRender.THEMES.forEach(function (t) {
+        var v = t.values;
+        var sw = el('div', { class: 'sw' }, [v.navy, v.navy2, v.silver, v.hi].map(function (c) { var i = el('i'); i.style.background = c; return i; }));
+        grid.appendChild(el('button', { class: 'theme', type: 'button', role: 'radio', 'aria-checked': String(work.design.theme === t.id),
+          onclick: function () { work.design.theme = t.id; draw(); onEdit(); } }, [sw, el('b', { text: t.label }), el('small', { text: t.note })]));
+      });
+      box.appendChild(grid);
+      box.appendChild(el('small', { class: 'hint', text: 'Changes the colors everywhere on the page. The picture shown when the link is shared keeps its own colors.' }));
+      box.appendChild(el('div', { style: 'margin-top:.9rem' }, [fieldInput({ type: 'toggle', label: 'Floating lights at the top of the page' }, work, 'design.lights')]));
+    }
+    draw();
+    return box;
+  }
+
+  function renderFieldList(fields, obj, body, rerender) {
+    fields.forEach(function (f) {
       var n;
       if (f.type === 'datehelper') n = dateHelper(rerender);
-      else if (f.type === 'row2') n = el('div', { class: 'row2' }, f.fields.map(function (sf) { return fieldInput(sf, work, sf.path, rerender); }));
-      else if (f.showIf && !getp(work, f.showIf)) return;
-      else if (f.type === 'strings') n = stringsField(f, work, f.path);
-      else if (f.type === 'repeat') n = repeatField(f, work, f.path);
-      else if (f.type === 'image') n = imageField(f, work, f.path);
-      else n = fieldInput(f, work, f.path, rerender);
+      else if (f.type === 'sections') n = sectionsField();
+      else if (f.type === 'design') n = designField();
+      else if (f.type === 'row2') n = el('div', { class: 'row2' }, f.fields.map(function (sf) { return fieldInput(sf, obj, sf.path, rerender); }));
+      else if (f.showIf && !getp(obj, f.showIf)) return;
+      else if (f.type === 'strings') n = stringsField(f, obj, f.path);
+      else if (f.type === 'repeat') n = repeatField(f, obj, f.path);
+      else if (f.type === 'image') n = imageField(f, obj, f.path);
+      else n = fieldInput(f, obj, f.path, rerender);
       body.appendChild(n);
     });
   }
+  function renderGroupFields(group, body, rerender) { renderFieldList(group.fields, work, body, rerender); }
+
+  /* ---------- drag to reorder (mouse, finger or pen). The arrow buttons stay for keyboard use. ---------- */
+  function sortable(container, itemSel, handleSel, onReorder) {
+    container.addEventListener('pointerdown', function (e) {
+      if (e.button != null && e.button > 0) return;
+      var h = e.target.closest(handleSel); if (!h || !container.contains(h)) return;
+      var item = h.closest(itemSel); if (!item || item.parentNode !== container) return;
+      e.preventDefault();
+      var kids = function () { return Array.prototype.filter.call(container.children, function (x) { return x.matches(itemSel); }); };
+      var from = kids().indexOf(item), scroller = container.closest('.pane') || document.scrollingElement, id = e.pointerId;
+      item.classList.add('dragging'); document.body.classList.add('is-dragging');
+      /* listen on the whole page: moving the dragged box in the list makes the browser let go of the handle */
+      function move(ev) {
+        if (ev.pointerId !== id) return;
+        var sibs = kids().filter(function (x) { return x !== item; }), after = null;
+        for (var i = 0; i < sibs.length; i++) { var r = sibs[i].getBoundingClientRect(); if (ev.clientY < r.top + r.height / 2) { after = sibs[i]; break; } }
+        if (after) { if (item.nextElementSibling !== after) container.insertBefore(item, after); }
+        else if (sibs.length) { var last = sibs[sibs.length - 1]; if (last.nextElementSibling !== item) last.after(item); }
+        var pr = scroller.getBoundingClientRect ? scroller.getBoundingClientRect() : { top: 0, bottom: innerHeight };
+        if (ev.clientY < pr.top + 50) scroller.scrollTop -= 14; else if (ev.clientY > pr.bottom - 50) scroller.scrollTop += 14;
+        ev.preventDefault();
+      }
+      function done(ev) {
+        if (ev && ev.pointerId !== id) return;
+        document.removeEventListener('pointermove', move, true); document.removeEventListener('pointerup', done, true); document.removeEventListener('pointercancel', done, true);
+        item.classList.remove('dragging'); document.body.classList.remove('is-dragging');
+        var to = kids().indexOf(item); if (to !== from) onReorder(from, to);
+      }
+      document.addEventListener('pointermove', move, true); document.addEventListener('pointerup', done, true); document.addEventListener('pointercancel', done, true);
+    });
+  }
+  function moveIn(list, from, to) { list.splice(to, 0, list.splice(from, 1)[0]); }
 
   function buildForms() {
     formsRoot = $('forms'); var openId = formsRoot.querySelector('details[open]'); openId = openId ? openId.dataset.id : 'hero';
@@ -637,14 +832,16 @@
 
   /* ===================== preview ===================== */
   var frame, lastScroll = 0, timer = null, wantJump = null;
-  var BRIDGE = '<style>*,*::before,*::after{animation:none!important;transition:none!important}.js .reveal{opacity:1!important;translate:none!important}.rsvp-mat.pending::after{display:none}</style>' +
+  var BRIDGE = '<style>*,*::before,*::after{animation:none!important;transition:none!important}.js .reveal{opacity:1!important;translate:none!important}.rsvp-mat.pending::after{display:none}.ph-form{height:360px;display:grid;place-items:center;text-align:center;padding:1rem;color:#a9bcc2;font:italic 1.1rem Georgia,serif;border:1px dashed rgba(185,198,204,.45)}</style>' +
     '<script>(function(){var t;addEventListener("scroll",function(){clearTimeout(t);t=setTimeout(function(){parent.postMessage({galaScroll:scrollY},"*")},80)},{passive:true});' +
     'addEventListener("message",function(e){var d=e.data||{};if(d.scrollTo!=null)scrollTo(0,d.scrollTo);' +
     'if(d.jump){var n=document.querySelector(d.jump);if(n){var h=(document.querySelector(".site-header")||{offsetHeight:0}).offsetHeight;scrollTo({top:n.getBoundingClientRect().top+scrollY-h-8,behavior:"smooth"})}}})})();<\/script>';
 
   function previewHtml() {
     var html = GalaRender.page(work, template, { resolveAsset: function (p) { return pendingAssets[p] ? pendingAssets[p].dataUrl : p; } });
-    return html.replace('<head>', '<head><base href="' + SITE_ROOT + '">').replace('</body>', BRIDGE + '</body>');
+    /* the preview leaves out the third-party ticket form (and the helper that resizes it); the live page has both */
+    html = html.replace(/<iframe\s+id="ticket-form"[\s\S]*?<\/iframe>/, '<div class="ph-form">The ticket form appears here on the live site</div>');
+    return html.replace('<script src="iframeResizer.min.js"><\/script>', '').replace('<head>', '<head><base href="' + SITE_ROOT + '">').replace('</body>', BRIDGE + '</body>');
   }
   function drawPreview() {
     try { frame.srcdoc = previewHtml(); } catch (e) { toast('Preview error: ' + e.message); }
@@ -689,14 +886,40 @@
     if (/#count$/.test(path)) return path.replace(/#count$/, '').replace(/\.|\[.*$/g, ' ') + ' (number of entries)';
     return path;
   }
+  LABELS['design.theme'] = 'Color theme'; LABELS['design.lights'] = 'Floating lights at the top';
+  function themeName(id) { var t = GalaRender.THEMES.filter(function (x) { return x.id === id; })[0]; return t ? t.label : id; }
+  function layoutChanges(A, B) {
+    var out = [], la = A.layout, lb = B.layout;
+    var ida = la.map(function (x) { return x.id; }), idb = lb.map(function (x) { return x.id; });
+    var both = function (ids, other) { return ids.filter(function (i) { return other.indexOf(i) >= 0; }); };
+    if (both(ida, idb).join() !== both(idb, ida).join())
+      out.push({ label: 'Order of the sections', from: la.map(function (x) { return sectionName(x, A); }).join('  →  '), to: lb.map(function (x) { return sectionName(x, B); }).join('  →  ') });
+    lb.forEach(function (it) {
+      var old = la.filter(function (x) { return x.id === it.id; })[0], nm = sectionName(it, B);
+      if (!old) { out.push({ label: 'New section added', to: nm + ' (' + (BLOCKS[it.type] ? BLOCKS[it.type].label : it.type) + ')' }); return; }
+      if ((old.visible !== false) !== (it.visible !== false)) out.push({ label: 'Section "' + nm + '"', from: old.visible !== false ? 'shown' : 'hidden', to: it.visible !== false ? 'shown' : 'hidden' });
+      if (BLOCKS[it.type]) {
+        var strip = function (o) { var c = clone(o); delete c.id; delete c.type; delete c.visible; return flatten(c, ''); };
+        var fa = strip(old), fb = strip(it), ks = {}; Object.keys(fa).concat(Object.keys(fb)).forEach(function (k) { ks[k] = 1; });
+        Object.keys(ks).forEach(function (k) { if (String(fa[k]) !== String(fb[k])) out.push({ label: 'Section "' + nm + '": ' + k.replace(/#count$/, ' (number of entries)').replace(/[\[\]]/g, ' ').replace(/\./g, ' › '), from: fa[k], to: fb[k] }); });
+      }
+    });
+    la.forEach(function (it) { if (idb.indexOf(it.id) < 0) out.push({ label: 'Section removed', from: sectionName(it, A) }); });
+    return out;
+  }
   function changeList() {
-    var a = flatten(saved, ''), b = flatten(work, ''), keys = {}; Object.keys(a).concat(Object.keys(b)).forEach(function (k) { keys[k] = 1; });
+    var A = clone(saved), B = clone(work); var lay = layoutChanges(A, B); delete A.layout; delete B.layout;
+    var a = flatten(A, ''), b = flatten(B, ''), keys = {}; Object.keys(a).concat(Object.keys(b)).forEach(function (k) { keys[k] = 1; });
     var out = [];
     Object.keys(keys).forEach(function (k) {
       if (/#count$/.test(k)) { if (a[k] !== b[k]) out.push({ label: labelFor(k), from: a[k], to: b[k] }); return; }
-      if (String(a[k]) !== String(b[k])) out.push({ label: labelFor(k), from: a[k], to: b[k] });
+      if (String(a[k]) !== String(b[k])) {
+        var ch = { label: labelFor(k), from: a[k], to: b[k] };
+        if (k === 'design.theme') { ch.from = themeName(a[k]); ch.to = themeName(b[k]); }
+        out.push(ch);
+      }
     });
-    return out;
+    return out.concat(lay);
   }
   function short(v) { v = v == null ? '(empty)' : String(v); return v.length > 120 ? v.slice(0, 117) + '…' : (v === '' ? '(empty)' : v); }
 
@@ -708,7 +931,17 @@
     if (!/^https:\/\//i.test(w.rsvp.url || '')) p.push('The ticket form address must start with https://');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(w.contact.email || '')) p.push('The contact email doesn’t look right.');
     if (isNaN(Date.parse(w.seo.startDate || ''))) p.push('Google’s start date isn’t a valid date. Use "Fill in the date for me" in Event details.');
-    if (!w.tributeCommittee.tiers.length) p.push('Add at least one Tribute Committee level, or the section will be empty.');
+    var shown = function (type) { return w.layout.some(function (it) { return it.type === type && it.visible !== false; }); };
+    if (shown('tiers') && !w.tributeCommittee.tiers.length) p.push('Add at least one Tribute Committee level, or hide that section.');
+    if (!shown('rsvp')) p.push('The ticket form section has to stay on the page (the buttons jump to it).');
+    w.layout.forEach(function (it) {
+      if (!BLOCKS[it.type]) return;
+      var nm = sectionName(it);
+      var empty = !(it.title || it.body || it.text || (it.items && it.items.length));
+      if (empty) p.push('The section "' + nm + '" is empty. Add some words or remove it.');
+      if (it.type === 'photo' && !it.image) p.push('The section "' + nm + '" needs a picture. Choose one, or remove the section.');
+      if (it.type === 'banner' && it.buttonLabel && !/^(https?:\/\/|#|mailto:)/i.test(it.buttonUrl || '')) p.push('The button in "' + nm + '" needs an address starting with https://, mailto: or #.');
+    });
     return p;
   }
 
@@ -806,7 +1039,7 @@
   }
   function restoreVersion(sha, when) {
     readContent(sha).then(function (r) {
-      work = r.content; pendingAssets = pendingAssets; buildForms(); onEdit(); closeModal();
+      work = normalize(r.content); buildForms(); onEdit(); closeModal();
       toast('Loaded the version from ' + when + '. Review it, then press Publish.');
     }).catch(function (e) { toast(e.message); });
   }

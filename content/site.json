@@ -24,6 +24,37 @@
   "cta": {
     "label": "RSVP / Tribute"
   },
+  "design": {
+    "theme": "platinum",
+    "lights": true
+  },
+  "layout": [
+    {
+      "id": "tiers",
+      "type": "tiers",
+      "visible": true
+    },
+    {
+      "id": "tributes",
+      "type": "tributes",
+      "visible": true
+    },
+    {
+      "id": "hosts",
+      "type": "hosts",
+      "visible": true
+    },
+    {
+      "id": "rsvp",
+      "type": "rsvp",
+      "visible": true
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "visible": true
+    }
+  ],
   "hero": {
     "image": "gala-hero.jpg",
     "imageAlt": "The Maxine and Carl D. Silver Chabad Jewish Center at UMW in Fredericksburg, Virginia",

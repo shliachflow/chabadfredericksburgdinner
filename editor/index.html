@@ -161,6 +161,18 @@
     .theme .sw { display: flex; height: 26px; border: 1px solid rgba(255,255,255,.18); }
     .theme .sw i { flex: 1; }
     .theme b { font: 600 .85rem var(--body); } .theme small { color: var(--muted); font-size: .76rem; }
+    .grouphelp { font-size: .86rem; color: var(--muted); margin: -.2rem 0 .1rem; }
+    details.adv { border: 1px dashed var(--line-2); border-radius: 3px; background: rgba(185,198,204,.04); }
+    details.adv > summary { cursor: pointer; padding: .7rem .8rem; font-weight: 600; font-size: .88rem; color: var(--silver-hi); list-style: none; }
+    details.adv > summary::-webkit-details-marker { display: none; }
+    details.adv > summary::before { content: '▸'; display: inline-block; margin-right: .5rem; transition: transform .15s; }
+    details.adv[open] > summary::before { transform: rotate(90deg); }
+    details.adv > summary small { display: block; font-weight: 400; color: var(--muted); font-size: .78rem; margin-left: 1.15rem; margin-top: .1rem; }
+    details.adv > .adv-body { padding: .2rem .8rem .9rem; display: grid; gap: .95rem; }
+    .tips { border: 1px solid var(--line-2); border-radius: 4px; background: var(--panel); padding: .9rem 1rem; margin-bottom: 10px; position: relative; }
+    .tips > b { font: 500 1.1rem var(--display); display: block; margin-bottom: .4rem; }
+    .tips ul { margin: 0 0 .6rem 1.1rem; display: grid; gap: .25rem; font-size: .88rem; color: var(--muted); }
+    .tips ul b { font: 600 .88rem var(--body); color: var(--text); }
     .typelist { display: grid; gap: .5rem; margin: .6rem 0 1rem; }
     .typebtn { appearance: none; text-align: left; border: 1px solid var(--line-2); background: var(--bg); border-radius: 3px; padding: .7rem .8rem; cursor: pointer; }
     .typebtn:hover, .typebtn:focus-visible { border-color: var(--silver-hi); background: rgba(185,198,204,.08); }
@@ -220,9 +232,9 @@
   <header class="topbar">
     <h1>Gala site editor <small id="who"></small></h1>
     <div class="status"><span class="dot" id="dot"></span><span id="statusText">Loading…</span></div>
-    <button class="btn small" id="historyBtn" type="button">History</button>
-    <button class="btn small" id="discardBtn" type="button" disabled>Discard changes</button>
-    <button class="btn primary" id="publishBtn" type="button" disabled>Publish</button>
+    <button class="btn small" id="historyBtn" type="button" title="See earlier versions and put one back">History</button>
+    <button class="btn small" id="discardBtn" type="button" title="Throw away everything you changed since the last publish" disabled>Discard changes</button>
+    <button class="btn primary" id="publishBtn" type="button" title="Send your changes to the live site" disabled>Publish</button>
     <button class="btn small" id="signOutBtn" type="button">Sign out</button>
   </header>
   <div class="split" id="split" data-tab="edit">
@@ -290,7 +302,7 @@
   /* ===================== the editable fields ===================== */
   var TONES = [['emerald', 'Emerald (green)'], ['ruby', 'Ruby (red)'], ['sapphire', 'Sapphire (blue)'], ['gold', 'Gold'], ['silver', 'Silver']];
   var GROUPS = [
-    { id: 'hero', title: 'Top of the page', sub: 'Photo, title, live music line', jump: '.hero-stage', fields: [
+    { id: 'hero', help: "The photo, the big title and the live music line at the top of the page.", title: 'Top of the page', sub: 'Photo, title, live music line', jump: '.hero-stage', fields: [
       { path: 'hero.eyebrow', label: 'Small line above the title', type: 'text' },
       { path: 'hero.edition', label: 'Edition', type: 'text', hint: 'For example "2nd Annual". The "nd" is raised automatically.' },
       { path: 'hero.word', label: 'Big word', type: 'text', hint: 'Shown very large.' },
@@ -301,7 +313,7 @@
       { path: 'live.logo', label: 'Band logo', type: 'image', kind: 'logo', showIf: 'live.show' },
       { path: 'live.after', label: 'Live music line: words after the logo', type: 'text', showIf: 'live.show' }
     ]},
-    { id: 'details', title: 'Event details', sub: 'Date, time and place', jump: '.event-details', fields: [
+    { id: 'details', help: "The date, time and place. Changing the date? Use the dashed box first.", title: 'Event details', sub: 'Date, time and place', jump: '.event-details', fields: [
       { type: 'datehelper' },
       { path: 'details.title', label: 'Card heading', type: 'text' },
       { path: 'details.date', label: 'Date', type: 'text' },
@@ -310,8 +322,8 @@
       { path: 'details.venue', label: 'Venue', type: 'text' },
       { path: 'details.address', label: 'Address', type: 'text' }
     ]},
-    { id: 'sections', title: 'Page sections', sub: 'Reorder, hide or add sections', jump: null, fields: [ { type: 'sections' } ] },
-    { id: 'tiers', title: 'Tribute Committee levels', sub: 'Emerald, Ruby, Sapphire…', jump: '.tiers', fields: [
+    { id: 'sections', help: "Reorder, hide or add sections. The boxes inside each section are edited in their own menu below.", title: 'Page sections', sub: 'Reorder, hide or add sections', jump: null, fields: [ { type: 'sections' } ] },
+    { id: 'tiers', help: "The sponsor levels. Drag the ⠿ handle to reorder them, or use the arrows.", title: 'Tribute Committee levels', sub: 'Emerald, Ruby, Sapphire…', jump: '.tiers', fields: [
       { path: 'tributeCommittee.title', label: 'Section title', type: 'text' },
       { path: 'tributeCommittee.subtitle', label: 'Line under the title', type: 'text' },
       { path: 'tributeCommittee.tiers', label: 'Levels', type: 'repeat', itemName: 'name', addLabel: 'Add a level',
@@ -324,7 +336,7 @@
         ] },
       { path: 'tributeCommittee.note', label: 'Note under the levels', type: 'textarea' }
     ]},
-    { id: 'digital', title: 'Digital tributes', sub: 'Full, half, quarter screen…', jump: '.tributes', fields: [
+    { id: 'digital', help: "The digital tribute options and their prices.", title: 'Digital tributes', sub: 'Full, half, quarter screen…', jump: '.tributes', fields: [
       { path: 'digitalTributes.title', label: 'Section title', type: 'text' },
       { path: 'digitalTributes.subtitle', label: 'Line under the title', type: 'text' },
       { path: 'digitalTributes.items', label: 'Tributes', type: 'repeat', itemName: 'title', addLabel: 'Add a tribute',
@@ -336,12 +348,12 @@
         ] },
       { path: 'digitalTributes.note', label: 'Note under the tributes', type: 'textarea' }
     ]},
-    { id: 'hosts', title: 'Host Committee', sub: 'Names on the page', jump: '.host-box', fields: [
+    { id: 'hosts', help: "The names shown in the Host Committee box.", title: 'Host Committee', sub: 'Names on the page', jump: '.host-box', fields: [
       { path: 'hosts.title', label: 'Section title', type: 'text' },
       { path: 'hosts.names', label: 'Names', type: 'strings', addLabel: 'Add a name', hint: 'One per row. Use the arrows to reorder.', reorder: true },
       { path: 'hosts.status', label: 'Small label under the names', type: 'text', hint: 'For example "In formation". Leave empty to hide it.' }
     ]},
-    { id: 'rsvp', title: 'RSVP form and contact', sub: 'Ticket form link, email, footer', jump: '#rsvp', fields: [
+    { id: 'rsvp', help: "The ticket form address, the main button, the contact email and the footer.", title: 'RSVP form and contact', sub: 'Ticket form link, email, footer', jump: '#rsvp', fields: [
       { path: 'rsvp.title', label: 'Section title', type: 'text' },
       { path: 'rsvp.url', label: 'Ticket form address', type: 'url', hint: 'The TicketSpice page for this event.' },
       { path: 'rsvp.helpBefore', label: 'Help line: words before the link', type: 'text' },
@@ -351,27 +363,29 @@
       { path: 'contact.email', label: 'Contact email', type: 'email' },
       { path: 'footer.text', label: 'Footer text', type: 'text' }
     ]},
-    { id: 'design', title: 'Look and feel', sub: 'Colors and effects', jump: null, fields: [ { type: 'design' } ] },
-    { id: 'header', title: 'Top bar', sub: 'Name and tagline', jump: '.site-header', fields: [
+    { id: 'design', help: "The color theme for the whole page.", title: 'Look and feel', sub: 'Colors and effects', jump: null, fields: [ { type: 'design' } ] },
+    { id: 'header', help: "The name and tagline in the bar at the very top.", title: 'Top bar', sub: 'Name and tagline', jump: '.site-header', fields: [
       { path: 'header.brand', label: 'Organization name', type: 'text' },
       { path: 'header.tagline', label: 'Tagline under the name', type: 'text' },
       { path: 'header.blessing', label: 'Blessing at the very top', type: 'text' }
     ]},
-    { id: 'seo', title: 'Search and sharing', sub: 'How Google and text messages show the page', jump: null, fields: [
+    { id: 'seo', help: "How the page looks on Google and when the link is texted or shared.", title: 'Search and sharing', sub: 'How Google and text messages show the page', jump: null, fields: [
       { path: 'seo.title', label: 'Page title', type: 'text', limit: 60, hint: 'Shown in browser tabs and Google. About 60 characters is ideal.' },
       { path: 'seo.description', label: 'Short description', type: 'textarea', limit: 160, hint: 'Shown by Google and when the link is shared. About 160 characters is ideal.' },
       { path: 'seo.shareImage', label: 'Picture shown when the link is shared', type: 'image', kind: 'share', hint: 'Best at 1200 × 630.' },
       { path: 'seo.shareImageAlt', label: 'Share picture description', type: 'text' },
-      { path: 'seo.eventName', label: 'Event name (for Google)', type: 'text' },
-      { path: 'seo.startDate', label: 'Start date and time (for Google)', type: 'text', hint: 'Filled in by "Fill in the date for me" in Event details. Format: 2026-12-01T18:00:00-05:00' },
-      { path: 'seo.performer', label: 'Performer', type: 'text' },
-      { path: 'seo.organizationName', label: 'Organization name (for Google)', type: 'text' },
-      { type: 'row2', fields: [
+      { type: 'advanced', label: 'Advanced: details for Google', hint: 'Most people never need these. The date helper in Event details fills in the start time for you.', fields: [
+        { path: 'seo.eventName', label: 'Event name (for Google)', type: 'text' },
+        { path: 'seo.startDate', label: 'Start date and time (for Google)', type: 'text', hint: 'Filled in by "Fill in the date for me" in Event details. Format: 2026-12-01T18:00:00-05:00' },
+        { path: 'seo.performer', label: 'Performer', type: 'text' },
+        { path: 'seo.organizationName', label: 'Organization name (for Google)', type: 'text' },
+        { type: 'row2', fields: [
         { path: 'seo.street', label: 'Street', type: 'text' }, { path: 'seo.city', label: 'City', type: 'text' } ] },
-      { type: 'row2', fields: [
+        { type: 'row2', fields: [
         { path: 'seo.state', label: 'State', type: 'text' }, { path: 'seo.zip', label: 'ZIP', type: 'text' } ] },
-      { type: 'row2', fields: [
+        { type: 'row2', fields: [
         { path: 'seo.latitude', label: 'Map latitude', type: 'number' }, { path: 'seo.longitude', label: 'Map longitude', type: 'number' } ] }
+      ] }
     ]}
   ];
 
@@ -743,6 +757,11 @@
     box.appendChild(list);
     return box;
   }
+  function advancedField(f, obj, rerender) {
+    var body = el('div', { class: 'adv-body' });
+    renderFieldList(f.fields, obj, body, rerender);
+    return el('details', { class: 'adv' }, [el('summary', {}, [f.label, f.hint ? el('small', { text: f.hint }) : null]), body]);
+  }
   function designField() {
     var box = el('div', { class: 'field' });
     function draw() {
@@ -769,6 +788,7 @@
       if (f.type === 'datehelper') n = dateHelper(rerender);
       else if (f.type === 'sections') n = sectionsField();
       else if (f.type === 'design') n = designField();
+      else if (f.type === 'advanced') n = advancedField(f, obj, rerender);
       else if (f.type === 'row2') n = el('div', { class: 'row2' }, f.fields.map(function (sf) { return fieldInput(sf, obj, sf.path, rerender); }));
       else if (f.showIf && !getp(obj, f.showIf)) return;
       else if (f.type === 'strings') n = stringsField(f, obj, f.path);
@@ -815,10 +835,19 @@
   function buildForms() {
     formsRoot = $('forms'); var openId = formsRoot.querySelector('details[open]'); openId = openId ? openId.dataset.id : 'hero';
     formsRoot.innerHTML = '';
+    var tipsOff = false; try { tipsOff = localStorage.getItem('galaEditorTipsHidden') === '1'; } catch (e) {}
+    if (!tipsOff) {
+      var tips = el('div', { class: 'tips', id: 'tips' }, [el('b', { text: 'Quick tips' }), el('ul', {}, [
+        el('li', {}, [el('b', { text: 'Open a section' }), ' on the left and change the words. The preview on the right updates right away.']),
+        el('li', {}, [el('b', { text: 'Nothing is public' }), ' until you press ', el('b', { text: 'Publish' }), '.']),
+        el('li', {}, ['Made a mistake? ', el('b', { text: 'History' }), ' puts an earlier version back.'])])]);
+      tips.appendChild(el('button', { class: 'btn small', type: 'button', id: 'tipsOk', text: 'Got it', onclick: function () { try { localStorage.setItem('galaEditorTipsHidden', '1'); } catch (e) {} tips.remove(); } }));
+      formsRoot.appendChild(tips);
+    }
     GROUPS.forEach(function (g) {
       var d = el('details', { class: 'group', 'data-id': g.id }, [el('summary', {}, [el('span', { text: g.title }), el('span', { class: 'sub', text: g.sub })])]);
       var body = el('div', { class: 'group-body' });
-      function draw() { body.innerHTML = ''; renderGroupFields(g, body, function () { draw(); }); }
+      function draw() { body.innerHTML = ''; if (g.help) body.appendChild(el('p', { class: 'grouphelp', text: g.help })); renderGroupFields(g, body, function () { draw(); }); }
       draw();
       d.appendChild(body);
       if (g.id === openId) d.open = true;
@@ -877,7 +906,7 @@
     return out;
   }
   var LABELS = {}; (function () {
-    function walk(fields, pre) { fields.forEach(function (f) { if (f.fields && f.type === 'row2') walk(f.fields, pre); else if (f.path) LABELS[(pre || '') + f.path] = f.label; if (f.type === 'repeat') f.fields.forEach(function (sf) { LABELS[f.path + '[].' + sf.path] = f.label.replace(/s$/, '') + ': ' + sf.label; }); }); }
+    function walk(fields, pre) { fields.forEach(function (f) { if (f.fields && (f.type === 'row2' || f.type === 'advanced')) walk(f.fields, pre); else if (f.path) LABELS[(pre || '') + f.path] = f.label; if (f.type === 'repeat') f.fields.forEach(function (sf) { LABELS[f.path + '[].' + sf.path] = f.label.replace(/s$/, '') + ': ' + sf.label; }); }); }
     GROUPS.forEach(function (g) { walk(g.fields); });
   })();
   function labelFor(path) {
